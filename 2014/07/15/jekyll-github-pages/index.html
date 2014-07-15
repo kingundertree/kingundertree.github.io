@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>夏至</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="利用github搭建自己的博客
+第一步：github构建项目
+1。比如我的github地址：https://github.com/kingundertree/，需要新建repository
+2.新建repository地址必须和github的username保持一致，生成地址：https://github.com/kingundertree/kingundertree.github.io
+3.设置">
+<meta property="og:type" content="article">
+<meta property="og:title" content="夏至">
+<meta property="og:url" content="http://yoursite.com/2014/07/15/jekyll-github-pages/">
+<meta property="og:site_name" content="夏至">
+<meta property="og:description" content="利用github搭建自己的博客
+第一步：github构建项目
+1。比如我的github地址：https://github.com/kingundertree/，需要新建repository
+2.新建repository地址必须和github的username保持一致，生成地址：https://github.com/kingundertree/kingundertree.github.io
+3.设置">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="夏至">
+<meta name="twitter:description" content="利用github搭建自己的博客
+第一步：github构建项目
+1。比如我的github地址：https://github.com/kingundertree/，需要新建repository
+2.新建repository地址必须和github的username保持一致，生成地址：https://github.com/kingundertree/kingundertree.github.io
+3.设置">
+
+  
+    <link rel="alternative" href="/atom.xml" title="夏至" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">夏至</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">前端朝圣客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="yoursite.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-jekyll-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/15/jekyll-github-pages/" class="article-date">
+  <time datetime="2014-07-15T08:00:22.000Z" itemprop="datePublished">Jul 15 2014</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="利用github搭建自己的博客">利用github搭建自己的博客</h2>
+<h3 id="第一步：github构建项目">第一步：github构建项目</h3>
+<pre><code>1。比如我的github地址：https://github.com/kingundertree/，需要新建repository
+2.新建repository地址必须和github的username保持一致，生成地址：https://github.com/kingundertree/kingundertree.github.io
+3.设置github pages，在repository的setting中GitHub Pages部分，点击generator按钮即可
+4.git clone 至本地
+
+提示：也可直接按照官方教程操作即可[<span class="link_label">点击</span>](<span class="link_url">https://pages.github.com/</span>)
+</code></pre><h3 id="第二步：安装jekyll">第二步：安装jekyll</h3>
+<pre><code><span class="number">1</span>.mac示例，前提是按照ruby
+<span class="number">2</span>.执行，jekyll <span class="keyword">install</span>
+</code></pre><h3 id="第三步：安装jekyll-bootstrap">第三步：安装jekyll-bootstrap</h3>
+<pre><code>1.获取jekyll-bootstrap代码，[<span class="link_label">github 源代码</span>](<span class="link_url">https://github.com/plusjade/jekyll-bootstrap/</span>)
+2.将代码复制到第一步的clone 项目中
+3.修改代码，push等等
+</code></pre><h3 id="第四部：启动jekyll服务">第四部：启动jekyll服务</h3>
+<pre><code><span class="number">1.</span>进入clone 项目
+<span class="number">2.</span>执行jekyll <span class="keyword">server</span> 即可。我犯了一个错误，执行了jekyll --<span class="keyword">server</span>，久久不能生效
+</code></pre><h3 id="第五步：CNAME">第五步：CNAME</h3>
+<pre><code><span class="number">1.</span>项目中添加：CNAME文件，添加你要指向URL:www<span class="preprocessor">.xiazer</span><span class="preprocessor">.com</span>(这是我的，你可以指向自己的)
+</code></pre><h3 id="第六步：域名解析">第六步：域名解析</h3>
+<pre><code><span class="number">1.</span>创建解析记录类型A，记录值<span class="number">180.168</span><span class="number">.41</span><span class="number">.175</span>(github 官方ip)
+<span class="number">2.</span>然后，如果没有异常，十几分钟即可通过www<span class="preprocessor">.xiazer</span><span class="preprocessor">.com</span>
+</code></pre><h4 id="解释下整个解析流程：">解释下整个解析流程：</h4>
+<pre><code><span class="number">1.</span>github<span class="preprocessor">.com</span>/username 和 repository的https://github<span class="preprocessor">.com</span>/username/username<span class="preprocessor">.github</span><span class="preprocessor">.io</span> 的username相同，且创建username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>的repository时，该项目的github pages默认地址会指向username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>。(github 系统的逻辑，我在这里被坑了好久)
+<span class="number">2.</span>创建CNAME，可以把username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>地址指向CNAME中url
+<span class="number">3.</span>然后再把你的域名地址解析指向github，github会通过CNAME的url进行匹配，如果CNAME的url同指向github的url一致，则将username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>跳转至你的域名
+</code></pre><p>=========================<br>ok，解释完毕。搞了一个周末的东西，祝你顺利。</p>
+<p>我接着去玩下jekyll语言了，设计下自己的样式。    </p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/07/15/jekyll-github-pages/" data-id="hfj3rui2iqfzosch" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2014/07/15/hexo github 创建博客/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  
+    
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2014/07/15/jekyll-github-pages/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/15/hexo github 创建博客/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2014/07/15/hello-world/">Hello World</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://reqianduan.com">热前端</a>
+          </li>
+        
+          <li>
+            <a href="http://xiguabaobao.com">西瓜宝宝主题站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2014 xiazer<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank" rel="external nofollow">Hexo</a>
+      .
+      Theme by <a href="http://xiguabaobao.com/" target="_blank" rel="external nofollow">西瓜宝宝</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

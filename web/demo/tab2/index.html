@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>tab js，jquery超简洁版</title>
+<script type="text/javascript" src="jquery-1.8.3.min.js"></script>
+<style type="text/css">
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquote,th,td,font { color: #000; margin:0; padding:0; font-size:12px; font-family:Helvetica,sans-serif,Arial,"宋体","新宋体"; }
+fieldset,img {border:0; } 
+.clearfix:after { content: "."; display: block; height:0; clear: both; visibility: visible; font-size:0;}
+/* tab style */
+.tabcont ul li{ float: left; height: 35px; margin-right: 2px; text-align: center; width: 102px; line-height: 35px; cursor: pointer; font-size: 14px; color:#000; border:1px solid #FFF; list-style:none; list-style-type:none; }
+.tabcont li.cur{ border:1px solid #F00; border-bottom:none; border-top-left-radius:3px; border-top-right-radius:3px;}
+.ytabcont{ display: none;}
+</style>
+</head>
+
+<body>
+<div class="tabcont clearfix">
+    <ul class="clearfix">
+        <li class="cur">必备应用</li>
+        <li class="">热门软件</li>
+        <li class="">热门游戏</li>
+    </ul>
+    <div class="ytabbox clearfix">
+        <div class="ytabcont clearfix" style="display: block; ">
+            <dl>1</dl>
+        </div>
+        <div class="ytabcont clearfix" style="display: none; ">
+            <dl>2</dl>
+        </div>
+        <div class="ytabcont clearfix" style="display: none; ">
+            <dl>3</dl>
+        </div>
+    </div>
+</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		var tabli = $('.tabcont ul li');
+		tabli.hover(function(){
+			$(this).addClass('cur').siblings().removeClass('cur');
+			index = $('.tabcont ul li').index(this);
+			$('.ytabbox > .ytabcont').eq(index).show().siblings().hide();
+		});
+	});
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBliC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>js-tabsdemo</title>
+<link rel="stylesheet" href="css/style.css" type="text/css">
+<!--[if lte IE 6]>
+<script type="text/javascript" src="js/belatedPNG.js"></script>
+<script type="text/javascript">
+  DD_belatedPNG.fix('.png_bg,.png_bg a:hover,img,li');
+</script>
+<![endif]-->
+</head>
+<body>
+
+<div class="jsname">
+	<h2>Tabs(选项卡效果)</h2>
+</div>
+
+<div class="tabarea">
+    <div class="b-border"></div>
+        <ol class="top-title">
+            <li id="tabtit1" onclick="setTab(1,6)" class="hoverLi" style="border-left:1px solid #d4d4d4;">tab1</li>
+            <li id="tabtit2" onclick="setTab(2,6)">tab2</li>
+            <li id="tabtit3" onclick="setTab(3,6)">tab3</li>
+            <li id="tabtit4" onclick="setTab(4,6)">tab4</li>
+            <li id="tabtit5" onclick="setTab(5,6)">tab5</li>
+            <li id="tabtit6" onclick="setTab(6,6)" style="border-right:none;">tab6</li>
+        </ol>
+        <div id="cont1" style="display:block;">
+            Tab1
+        </div>
+        <div id="cont2" style="display:none;">
+            Tab2
+        </div>
+        <div id="cont3" style="display:none;">
+            Tab3
+        </div>
+        <div id="cont4" style="display:none;">
+            Tab4
+        </div>
+        <div id="cont5" style="display:none;">
+           Tab5
+        </div>
+        <div id="cont6" style="display:none;">
+           Tab6
+        </div>
+    </div>  
+</div>     	
+</body>
+<script type=text/javascript src="js/jquery.js"></script>
+<script type=text/javascript src="js/slide.js"></script>
+<script type=text/javascript src="js/iepngfix_tilebg.js"></script>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>二级菜单</title>
+</head>
+<body>
+<div class="main wrap">
+    <form id="dform" name="form" action="result.html" method="post">
+		<div class="formarea">
+            <p id="ProvinceBox" class="p_input">
+                <span class="red">*</span><span>省</span><span class="nametit"></span><span>份:</span>
+                <select class="province" name="province" id="province">
+                    <option value="">请选择所在省份</option>
+                </select>
+            </p>
+            <p id="selectCityBox" class="p_input">
+                <span class="red">*</span><span>城</span><span class="nametit"></span><span>市:</span>
+                <select class="selectCity" name="city" id="selectCity">
+                    <option value="">请选择所在城市</option>
+                </select>
+            </p>
+            <p class="clearfix"></p>
+			<a class="btn_submit" id="btn_submit">报名试驾</a>
+        </div>
+    </form>
+</div>
+<script type="text/javascript" src="js/jquery.1.3.2.min.js"></script>
+<script type="text/javascript" src="js/city.js"></script>
+<script type="text/javascript">
+
+var InitProvinceItems = function(jsonData, htmlId){
+  var provinceItems = "";
+  for (var i=0; i < jsonData.length; i++) {
+    provinceItems += '<option class="' + i + '" value="' + jsonData[i].a_v + '">' + jsonData[i].a_n + '</option>'
+  };
+  var htmlprovinceItems = '<span class="red">*</span><span>省</span><span class="nametit"></span><span>份:</span><select id="province" name="province"><option value="">请选择所在省份</option>' + provinceItems + '</select>';
+  $(htmlId).html(htmlprovinceItems);
+};
+InitProvinceItems(jsonRaw, "#ProvinceBox");
+
+var GenCityItems = function(jsonData, parentselectId, htmlId) {
+  var cityItems = "";
+  var provinceSN = $("option[value='" + $(parentselectId).val() + "']").attr("class");
+  for (var i=0; i < jsonData[provinceSN].a_ch.length; i++) {
+    cityItems += '<option class="' + i + '" value="' + jsonData[provinceSN].a_ch[i].b_v + '">' + jsonData[provinceSN].a_ch[i].b_n + '</option>';
+  };
+  var htmlcityItems = '<span class="red">*</span><span>城</span><span class="nametit"></span><span>市:</span><select id="selectCity" name="city"><option value="">请选择所在城市</option>' + cityItems + '</select>';
+  $(htmlId).html(htmlcityItems);
+  GprovinceSN = provinceSN;
+};
+var GenDealerItems = function(jsonData,provinceSN, citySN, htmlId) {
+  var dealerItems = "";
+  for (var i=0; i < jsonData[provinceSN].a_ch[citySN].b_ch.length; i++) {
+    dealerItems += '<option class="' + i + '" value="' + jsonData[provinceSN].a_ch[citySN].b_ch[i].c_v + '">' + jsonData[provinceSN].a_ch[citySN].b_ch[i].c_n + '</option>';
+  };
+  var htmldealerItems = '<span class="red">*</span><span>经销商:</span><select id="selectAgency" name="dealer"><option value="">请选择当地经销商</option>' + dealerItems + '</select>';
+  $(htmlId).html(htmldealerItems);
+  GcitySN = citySN;
+};
+$("#province").change(function() {
+  GenCityItems(jsonRaw, "#province", "#selectCityBox");
+  $("#selectAgencyBox").html('<span class="red">*</span><span>经销商:</span><select id="selectAgency" name="dealer"><option value="">请选择当地经销商</option></select>');
+  $("#selectCity").change(function() {
+    var citySN = $("option[value='" + $(this).val() + "']").attr("class");
+    GenDealerItems(jsonRaw, GprovinceSN, citySN, "#selectAgencyBox");
+  });
+});
+
+
+$("#province").change(function() {
+  GenCityItems(jsonRaw, "#province", "#selectCityBox");
+});
+
+function waittingSubmit(submitId) {
+	$("#" + submitId).attr("disabled", "disabled");
+};
+function hideScrollBar() {
+	if (!navigator.standalone) {
+		window.setTimeout(function() {
+			window.scrollTo(0, 1);
+		},
+		100);
+	}
+};
+
+function isFirstOptSelected(domID) {
+	return (document.getElementById(domID).selectedIndex == 0);
+};
+
+var provinceErr = "请选择您所在省份";
+var cityErr = "请选择您所在城市";
+
+function checkCommonField() {
+	$("#province").removeClass("error");
+	$("#selectCity").removeClass("error");
+	if (isFirstOptSelected("province")) {
+		alert(provinceErr);
+		$("#province").addClass("error");
+		$("#province").focus();
+		return false;
+	};
+	if (isFirstOptSelected("selectCity")) {
+		alert(cityErr);
+		$("#selectCity").addClass("error");
+		$("#selectCity").focus();
+		return false;
+	};
+	return true;
+};
+
+function checkTheFClass() {
+	if (checkCommonField()) {
+		waittingSubmit("btn_submit");
+		$("form").submit();
+		return true;
+	}
+	return false;
+};
+
+$('#btn_submit').click(function() {
+	checkTheFClass();
+	return false;
+});
+
+jQuery().ready(function() {
+	hideScrollBar();
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+
+@charset "utf-8";
+/*************************************************
+* 文件名称：style.css                                    
+* 编写人：徐山
+* 制作时间：2012.11.10
+* 联系方式：QQ：514277125  Email:kingundertree@163.com
+* 个人网站：http://xiazhi.1kapp.com/web/navi/navi.html
+*************************************************/
+body{ font-family:Verdana, arial, Helvetica, sans-serif,"黑体"; background:none; margin:0 auto; padding:0; font-size:12px; display:inline; color:#000; border:none; }
+a,abbr,acronym,address,applet,article,aside,audio,b,big,blockquote,body,canvas,caption,center,cite,code,dd,del,details,dfn,dialog,div,dl,dt,em,embed,fieldset,figcaption,figure,font,footer,form,h1,h2,h3,h4,h5,h6,header,hgroup,hr,html,i,iframe,img,ins,kbd,label,legend,li,menu,meter,nav,object,ol,output,p,pre,progress,q,rp,rt,ruby,s,samp,section,small,span,strike,strong,sub,summary,sup,table,tbody,td,tfoot,th,thead,time,tr,tt,u,ul,var,video,xmp { margin: 0; padding: 0; border:none; list-style:none; }
+html,body { height: 100%; }
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section { display: block; }
+b,strong {/* Makes browsers agree.IE + Opera = font-weight: bold. Gecko + WebKit = font-weight: bolder.*/ font-weight: bold; }
+/* public img style */
+img {color: transparent; font-size: 0; vertical-align: middle; /* For IE.*/ -ms-interpolation-mode: bicubic; /*li For IE6 + IE7.*/ display: list-item; }
+/* clear float */
+.clearfix:after{ content:'.'; display:block; margin:0 auto; height:0; clear:both; visibility:hidden; }
+/* vip data top style */
+
+.jsname { margin: 0px auto; width: 960px; height:130px; overflow:hidden; text-align:center;}
+.jsname h2{ padding-top:40px; font-size:25px;}
+
+/*vip data content left sytle */
+.tabarea{ width:725px; height:381px; margin:auto;border:1px solid #D4D4D4; position:relative; }
+.b-border{ width:5px; height:10px; border-left:1px solid #d4d4d4; position:absolute; z-index:89; top:30px; left:-1px; }
+.tabarea .top-title{ width:726px; position:absolute; z-index:33; top:0; left:-1px; height:34px; clear:both; background:url(../vipdata-images/data-lefttop.gif) repeat-x left top;  }
+.tabarea .top-title li{ float:left; padding-top:0px; text-align:center; width:120px; cursor:pointer; font-size:14px; background:#E1E1E1; border-right:1px solid #D4D4D4; height:34px; line-height:34px;}
+.tabarea .top-title li.hoverLi{ color:#1D91CE; font-weight:bold; width:120px; height:34px; background:#FFF; }
+.tabarea .text-contdiv.no-border{ border-bottom:none; }
+#cont1,#cont2,#cont3,#cont4,#cont5,#cont6 { width:725px; height:346px; padding-top:35px;}
+#cont1,#cont2,#cont3,#cont4,#cont5,#cont6 { text-align:center; line-height:346px; font-size:30px; color:#FFF;}
+#cont1{ background:#F0F;}
+#cont2{ background:#0FF;}
+#cont3{ background:#FF0;}
+#cont4{ background:#00F;}
+#cont5{ background:#0F0;}
+#cont6{ background:#F00;}

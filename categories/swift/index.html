@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: jekyll | 夏至</title>
+  <title>Category: swift | 夏至</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="不懂产品的前端，不是优秀的Ios工程师">
 <meta property="og:type" content="website">
 <meta property="og:title" content="夏至">
-<meta property="og:url" content="http://yoursite.com/tags/jekyll/">
+<meta property="og:url" content="http://yoursite.com/categories/swift/">
 <meta property="og:site_name" content="夏至">
 <meta property="og:description" content="不懂产品的前端，不是优秀的Ios工程师">
 <meta name="twitter:card" content="summary">
@@ -73,14 +73,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-jekyll-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-swift初感" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/07/14/jekyll-github-pages/" class="article-date">
-  <time datetime="2014-07-13T16:00:00.000Z" itemprop="datePublished">Jul 14 2014</time>
+    <a href="/2014/07/27/swift初感/" class="article-date">
+  <time datetime="2014-07-26T16:00:00.000Z" itemprop="datePublished">Jul 27 2014</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+    <a class="article-category-link" href="/categories/swift/">swift</a>
   </div>
 
   </div>
@@ -91,7 +91,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/14/jekyll-github-pages/">利用jekyll github搭建自己的博客</a>
+      <a class="article-title" href="/2014/07/27/swift初感/">swift初感</a>
     </h1>
   
 
@@ -99,42 +99,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="第一步：github构建项目">第一步：github构建项目</h3>
-<pre><code>1。比如我的github地址：https://github.com/kingundertree/，需要新建repository
-2.新建repository地址必须和github的username保持一致，生成地址：https://github.com/kingundertree/kingundertree.github.io
-3.设置github pages，在repository的setting中GitHub Pages部分，点击generator按钮即可
-4.git clone 至本地
-
-提示：也可直接按照官方教程操作即可[<span class="link_label">点击</span>](<span class="link_url">https://pages.github.com/</span>)
-</code></pre><h3 id="第二步：安装jekyll">第二步：安装jekyll</h3>
-<pre><code><span class="number">1</span>.mac示例，前提是安装ruby
-<span class="number">2</span>.执行，jekyll <span class="keyword">install</span>
-</code></pre><h3 id="第三步：安装jekyll-bootstrap">第三步：安装jekyll-bootstrap</h3>
-<pre><code>1.获取jekyll-bootstrap代码，[<span class="link_label">github 源代码</span>](<span class="link_url">https://github.com/plusjade/jekyll-bootstrap/</span>)
-2.将代码复制到第一步的clone 项目中
-3.修改代码，push等等
-</code></pre><h3 id="第四部：启动jekyll服务">第四部：启动jekyll服务</h3>
-<pre><code><span class="number">1.</span>进入clone 项目
-<span class="number">2.</span>执行jekyll <span class="keyword">server</span> 即可。我犯了一个错误，执行了jekyll --<span class="keyword">server</span>，久久不能生效
-</code></pre><h3 id="第五步：CNAME">第五步：CNAME</h3>
-<pre><code><span class="number">1.</span>项目中添加：CNAME文件，添加你要指向URL:www<span class="preprocessor">.xiazer</span><span class="preprocessor">.com</span>(这是我的，你可以指向自己的)
-</code></pre><h3 id="第六步：域名解析">第六步：域名解析</h3>
-<pre><code><span class="number">1.</span>创建解析记录类型A，记录值<span class="number">180.168</span><span class="number">.41</span><span class="number">.175</span>(github 官方ip)
-<span class="number">2.</span>然后，如果没有异常，十几分钟即可通过www<span class="preprocessor">.xiazer</span><span class="preprocessor">.com</span>
-</code></pre><h4 id="解释下整个解析流程：">解释下整个解析流程：</h4>
-<pre><code><span class="number">1.</span>github<span class="preprocessor">.com</span>/username 和 repository的https://github<span class="preprocessor">.com</span>/username/username<span class="preprocessor">.github</span><span class="preprocessor">.io</span> 的username相同，且创建username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>的repository时，该项目的github pages默认地址会指向username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>。(github 系统的逻辑，我在这里被坑了好久)
-<span class="number">2.</span>创建CNAME，可以把username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>地址指向CNAME中url
-<span class="number">3.</span>然后再把你的域名地址解析指向github，github会通过CNAME的url进行匹配，如果CNAME的url同指向github的url一致，则将username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>跳转至你的域名
-</code></pre><p>=========================<br>ok，解释完毕。搞了一个周末的东西，祝你顺利。</p>
-<p>我接着去玩下jekyll语言了，设计下自己的样式。    </p>
+        <p>swift中文版，基本看完了。整体感觉：1，语法的改动只是方便了书写，核心优势还是在于函数方法的扩增；2，iOS开发也开始变得更加复杂，可选择性也更多；3，持续性学习的要求更加多，iOS开发就可以派生出n多的分支，业务类、运动健康、支付类等等；4，我感觉，我还不是一个真正意义的程序员！</p>
+<p>去年刚开始从oc转前端的时候，还是非ARC，因为看到很多人推荐学习，说是需要通过学习非ARC了解oc的运行机制。但是当时ARC已经推出来快2年了，我比较怀疑以上观点。后来顺利切换到ARC，极少情况下需要处理内存泄露和加持的问题。</p>
+<p>现在iOS的语言也越来越牛逼，他帮我们考虑了更多底层处理问题，极力让程序员关注开发，关注设计和实现。非ARC的问题，估计还是有很多人纠结，就像很多人问，我学习计算机是不是一定要学习c语言。我坚持认为，这些接近底层的东西，如果不是要深入钻研，了解就够了。</p>
+<p>毕竟，大部分工作还是在业务实现层次的。把握住技术发展，及时更上才是王道。比如swift，好多人还是觉得无所谓，有oc就好，切换到swift还需要几年。我倒觉得，一切都会很快的。因为swift才是iOS真正的高级开发语言，未来更多牛逼的应用是基于swift而不是OC。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/07/14/jekyll-github-pages/" data-id="hfj3rui2iqfzosch" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2014/07/27/swift初感/" data-id="io62a2c8hfk7tdbq" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jekyll/">jekyll</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift-oc/">swift oc</a></li></ul>
 
     </footer>
   </div>

@@ -8,12 +8,15 @@
   <meta name="description" content="先上效果图
 
 功能
-1. 支持左右滑动快速切换viewController
-2. 支持viewController和导航的相互控制
-3. 支持viewController的切换效果和循环滚动
+
+支持左右滑动快速切换viewController
+支持viewController和导航的相互控制
+支持viewController的切换效果和循环滚动
+
 实现机制
-1. 基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate
-2. 通过UIPage">
+
+基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate
+通过UIPageViewControll">
 <meta property="og:type" content="article">
 <meta property="og:title" content="XZPageViewController 类似搜狐新闻切换效果">
 <meta property="og:url" content="http://yoursite.com/2015/03/16/XZPageViewController/">
@@ -21,24 +24,30 @@
 <meta property="og:description" content="先上效果图
 
 功能
-1. 支持左右滑动快速切换viewController
-2. 支持viewController和导航的相互控制
-3. 支持viewController的切换效果和循环滚动
+
+支持左右滑动快速切换viewController
+支持viewController和导航的相互控制
+支持viewController的切换效果和循环滚动
+
 实现机制
-1. 基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate
-2. 通过UIPage">
+
+基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate
+通过UIPageViewControll">
 <meta property="og:image" content="https://raw.githubusercontent.com/kingundertree/XZPageViewController/master/pageControl.gif">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="XZPageViewController 类似搜狐新闻切换效果">
 <meta name="twitter:description" content="先上效果图
 
 功能
-1. 支持左右滑动快速切换viewController
-2. 支持viewController和导航的相互控制
-3. 支持viewController的切换效果和循环滚动
+
+支持左右滑动快速切换viewController
+支持viewController和导航的相互控制
+支持viewController的切换效果和循环滚动
+
 实现机制
-1. 基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate
-2. 通过UIPage">
+
+基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate
+通过UIPageViewControll">
 
   
     <link rel="alternative" href="/atom.xml" title="夏至" type="application/atom+xml">
@@ -125,15 +134,19 @@
         <h3 id="先上效果图">先上效果图</h3>
 <p><img src="https://raw.githubusercontent.com/kingundertree/XZPageViewController/master/pageControl.gif" alt="Mou icon"></p>
 <h3 id="功能">功能</h3>
-<pre><code><span class="bullet">1. </span>支持左右滑动快速切换viewController
-<span class="bullet">2. </span>支持viewController和导航的相互控制
-<span class="bullet">3. </span>支持viewController的切换效果和循环滚动
-</code></pre><h3 id="实现机制">实现机制</h3>
-<pre><code><span class="bullet">1. </span>基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate
-<span class="bullet">2. </span>通过UIPageViewControllerDataSource 为 UIPageViewController 添加 viewControllerBeforeViewController 或 viewControllerAfterViewController ，实现视图的切换
-<span class="bullet">3. </span>通过UIPageViewControllerDelegate，通知实现导航效果切换
-<span class="bullet">4. </span>通过setViewControllers，实现点击导航切换viewcontrollers
-</code></pre><h3 id="使用方法">使用方法</h3>
+<ol>
+<li>支持左右滑动快速切换viewController</li>
+<li>支持viewController和导航的相互控制</li>
+<li>支持viewController的切换效果和循环滚动</li>
+</ol>
+<h3 id="实现机制">实现机制</h3>
+<ol>
+<li>基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate</li>
+<li>通过UIPageViewControllerDataSource 为 UIPageViewController 添加 viewControllerBeforeViewController 或 viewControllerAfterViewController ，实现视图的切换</li>
+<li>通过UIPageViewControllerDelegate，通知实现导航效果切换</li>
+<li>通过setViewControllers，实现点击导航切换viewcontrollers</li>
+</ol>
+<h3 id="使用方法">使用方法</h3>
 <p>目前，所有功能都已经集成到XZPageViewController中，只继承XZPageViewController，然后实现XZPageViewControllerDataSource,XZPageViewControllerDelegate。</p>
 <h5 id="XZPageViewControllerDataSource">XZPageViewControllerDataSource</h5>
 <p>1.设置导航宽度</p>

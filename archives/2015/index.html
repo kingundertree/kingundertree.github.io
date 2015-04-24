@@ -73,6 +73,123 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-手势滑动返回" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/24/手势滑动返回/" class="article-date">
+  <time datetime="2015-04-23T16:00:00.000Z" itemprop="datePublished">Apr 24 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/手势滑动返回/">手势滑动返回</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/24/手势滑动返回/">手势滑动返回，多种实现方案</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="OC实现手势滑动控制viewCotroller_返回功能">OC实现手势滑动控制viewCotroller 返回功能</h3>
+<h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/pushBackDemo/master/pushBack.gif" alt="Mou icon"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/pushBackDemo" target="_blank" rel="external">https://github.com/kingundertree/pushBackDemo</a></p>
+<h3 id="主要功能">主要功能</h3>
+<ol>
+<li>支持iOS5~8，滑动viewController，实现页面返回</li>
+<li>支持背景缩放和视差平滑2种模式</li>
+<li>支持单个页面和多个页面pop，支持页面返回后通知</li>
+<li>单个viewController禁用手势</li>
+</ol>
+<h3 id="设计思路">设计思路</h3>
+<ol>
+<li>继承UINavgationController，继承pushViewController方法。push的时候，依次调用[self capture]，截取上一个viewController并保存</li>
+<li>UINavgationController的view上add GestureRecognizer，监听手势动作</li>
+<li>手指右滑开始，将最新截图insertSubview: belowSubview:到当前view，并通过滑动距离，控制belowSubview的效果</li>
+<li>popViewControllerAnimated或者popToViewController: animated:后，移除对应的截图</li>
+</ol>
+<h3 id="使用方法">使用方法</h3>
+<p>1.继承PushBackNavgationController</p>
+<pre><code>PushBackNavigationController *nav = [[PushBackNavigationController alloc] initWithRootViewController:MVC]<span class="comment">;</span>
+self<span class="preprocessor">.window</span><span class="preprocessor">.rootViewController</span> = nav<span class="comment">;</span>
+</code></pre><p>2.设置手势滑动效果，支持背景缩放和平滑</p>
+<pre><code>typedef <span class="keyword">enum</span> {
+    CaptureTypeWithView = <span class="number">0</span>,
+    CaptureTypeWithWindow
+}CaptureType; <span class="comment">//截图区域选择</span>
+</code></pre><p>3.禁用某个页面手势</p>
+<pre><code>在需要控制的viewController，引入pushBackLock
+[pushBackLock setDisableGestureForBack:<span class="keyword">self</span><span class="variable">.navgationgationController</span> disable:<span class="literal">YES</span>]
+如果禁用所有手势，则不继承PushBackNavgationController即可
+</code></pre><h3 id="拦截iOS7_滑动返回手势">拦截iOS7 滑动返回手势</h3>
+<h3 id="效果图">效果图</h3>
+<p>见iOS7 系统自带原生手势滑动返回，但是控制区域在左侧10px位置，本demo支持viewController全部区域<br><img src="https://raw.githubusercontent.com/kingundertree/ExtensionNavGesForiOS7/master/extension.gif" alt="Mou icon"></p>
+<h3 id="github地址-1">github地址</h3>
+<p><a href="https://github.com/kingundertree/ExtensionNavGesForiOS7" target="_blank" rel="external">https://github.com/kingundertree/ExtensionNavGesForiOS7</a></p>
+<h3 id="主要功能-1">主要功能</h3>
+<ol>
+<li>模拟iOS手势滑动返回效果</li>
+<li>只支持iOS7 及以上版本</li>
+<li>此方法比较简单，而且系统提供的手势滑动效果更加细腻。但是采用NSRunloop截取系统事件，使用需谨慎。</li>
+</ol>
+<h3 id="实现思路">实现思路</h3>
+<ol>
+<li>iOS7 开始，系统提供手势滑动返回功能，但是操作区域有限</li>
+<li>设法截取系统手势事件，UINavgationController的interactivePopGestureRecognizer</li>
+<li>自定义UIPanGestureRecognizer并add到UINavgationController的view上</li>
+<li>截取interactivePopGestureRecognizer的target和action</li>
+<li>把interactivePopGestureRecognizer的target和action，赋给自定义的手势上即可</li>
+</ol>
+<h3 id="使用方法-1">使用方法</h3>
+<ol>
+<li>继承ExtensionNav即可</li>
+</ol>
+<h3 id="NavigationInteractiveTransition_实现iOS7系统手势返回效果">NavigationInteractiveTransition 实现iOS7系统手势返回效果</h3>
+<h3 id="效果图-1">效果图</h3>
+<p>见iOS7 系统自带原生手势滑动返回，但是控制区域在左侧10px位置，本demo支持viewController全部区域<br><img src="https://raw.githubusercontent.com/kingundertree/ExtensionNavGesForiOS7/master/extension.gif" alt="Mou icon"></p>
+<h3 id="github地址-2">github地址</h3>
+<p><a href="https://github.com/kingundertree/TransitionPopForiOS7-" target="_blank" rel="external">https://github.com/kingundertree/TransitionPopForiOS7-</a></p>
+<h3 id="主要功能-2">主要功能</h3>
+<ol>
+<li>模拟iOS手势滑动返回效果</li>
+<li>只支持iOS7 及以上版本</li>
+</ol>
+<h3 id="实现思路-1">实现思路</h3>
+<ol>
+<li>设法截取系统手势事件，UINavgationController的interactivePopGestureRecognizer</li>
+<li>通过ISO7提供的转场动画事件NavigationInteractiveTransition，创建新的action</li>
+<li>在action中计算progress，分别实现updateInteractiveTransition、finishInteractiveTransition、cancelInteractiveTransition事件即可</li>
+</ol>
+<h3 id="使用方法-2">使用方法</h3>
+<ol>
+<li>继承ExtensionNav即可</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/24/手势滑动返回/" data-id="89tyrzyz245g1w9y" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-XZPageViewController" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/16/XZPageViewController/" class="article-date">
@@ -101,7 +218,12 @@
       
         <h3 id="先上效果图">先上效果图</h3>
 <p><img src="https://raw.githubusercontent.com/kingundertree/XZPageViewController/master/pageControl.gif" alt="Mou icon"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/XZPageViewController" target="_blank" rel="external">https://github.com/kingundertree/XZPageViewController</a></p>
 <h3 id="功能">功能</h3>
+<p>见过一些类似的设计，但是很多都是采用UIScrollView，add viewController，然后自己监控UIScrollView的变化值实现导航和viewController的通讯，甚至有采用UITableView横过来的方式实现，深不以为然。一方面是实现成本大，操作麻烦，再就是viewController的生命周期需要单独控制等。</p>
+<p>更推崇系统提供的UIPageViewController方法，这个方法本来是方便实现类似读书软件的翻页效果。</p>
+<h3 id="功能-1">功能</h3>
 <ol>
 <li>支持左右滑动快速切换viewController</li>
 <li>支持viewController和导航的相互控制</li>
@@ -117,7 +239,7 @@
 <h3 id="使用方法">使用方法</h3>
 <p>目前，所有功能都已经集成到XZPageViewController中，只继承XZPageViewController，然后实现XZPageViewControllerDataSource,XZPageViewControllerDelegate。</p>
 <h5 id="XZPageViewControllerDataSource">XZPageViewControllerDataSource</h5>
-<p>1.设置导航宽度</p>
+<p>1.设置导航数量</p>
 <pre><code><span class="pp">- <span class="params">(float)</span>numOfPages;</span>
 </code></pre><p>2.设置导航宽度</p>
 <pre><code><span class="pp">- <span class="params">(float)</span>witdhOfNav;</span>
@@ -223,7 +345,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -232,7 +354,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -241,7 +363,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/UIPageViewController/" style="font-size: NaNpx;">UIPageViewController</a><a href="/tags/UITableView/" style="font-size: NaNpx;">UITableView</a><a href="/tags/hexo/" style="font-size: NaNpx;">hexo</a><a href="/tags/jekyll/" style="font-size: NaNpx;">jekyll</a><a href="/tags/swift-oc/" style="font-size: NaNpx;">swift oc</a>
+      <a href="/tags/UIPageViewController/" style="font-size: NaNpx;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: NaNpx;">UIPanGuesture</a><a href="/tags/UITableView/" style="font-size: NaNpx;">UITableView</a><a href="/tags/hexo/" style="font-size: NaNpx;">hexo</a><a href="/tags/jekyll/" style="font-size: NaNpx;">jekyll</a><a href="/tags/swift-oc/" style="font-size: NaNpx;">swift oc</a>
     </div>
   </div>
 
@@ -250,7 +372,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li></ul>
     </div>
   </div>
 
@@ -260,6 +382,10 @@
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2015/04/24/手势滑动返回/">手势滑动返回，多种实现方案</a>
+          </li>
         
           <li>
             <a href="/2015/03/16/XZPageViewController/">XZPageViewController 类似搜狐新闻切换效果</a>
@@ -275,10 +401,6 @@
         
           <li>
             <a href="/2014/07/15/hexo github 创建博客/">hexo github 创建个人博客</a>
-          </li>
-        
-          <li>
-            <a href="/2014/07/14/jekyll-github-pages/">利用jekyll github搭建自己的博客</a>
           </li>
         
       </ul>

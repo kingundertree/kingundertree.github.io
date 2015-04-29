@@ -3,12 +3,12 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: UIPageViewController | 夏至</title>
+  <title>Category: XXMenuDemo | 夏至</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="不懂产品的前端，不是优秀的Ios工程师">
 <meta property="og:type" content="website">
 <meta property="og:title" content="夏至">
-<meta property="og:url" content="http://yoursite.com/categories/UIPageViewController/">
+<meta property="og:url" content="http://yoursite.com/categories/XXMenuDemo/">
 <meta property="og:site_name" content="夏至">
 <meta property="og:description" content="不懂产品的前端，不是优秀的Ios工程师">
 <meta name="twitter:card" content="summary">
@@ -73,14 +73,14 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-XZPageViewController" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-XXMenuDemo，三栏式滑动菜单结构" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/03/16/XZPageViewController/" class="article-date">
-  <time datetime="2015-03-15T16:00:00.000Z" itemprop="datePublished">Mar 16 2015</time>
+    <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/" class="article-date">
+  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/UIPageViewController/">UIPageViewController</a>
+    <a class="article-category-link" href="/categories/XXMenuDemo/">XXMenuDemo</a>
   </div>
 
   </div>
@@ -91,7 +91,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/16/XZPageViewController/">XZPageViewController 类似搜狐新闻切换效果</a>
+      <a class="article-title" href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
     </h1>
   
 
@@ -100,51 +100,72 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="先上效果图">先上效果图</h3>
-<p><img src="https://raw.githubusercontent.com/kingundertree/XZPageViewController/master/pageControl.gif" alt="Mou icon"></p>
+<p><img src="https://raw.githubusercontent.com/kingundertree/XXMenuDemo/master/XXMenuGif.gif" alt="Mou icon"></p>
 <h3 id="github地址">github地址</h3>
-<p><a href="https://github.com/kingundertree/XZPageViewController" target="_blank" rel="external">https://github.com/kingundertree/XZPageViewController</a></p>
+<p><a href="https://github.com/kingundertree/XXMenuDemo" target="_blank" rel="external">https://github.com/kingundertree/XXMenuDemo</a></p>
 <h3 id="说明">说明</h3>
-<p>见过一些类似的设计，但是很多都是采用UIScrollView，add viewController，然后自己监控UIScrollView的变化值实现导航和viewController的通讯，甚至有采用UITableView横过来的方式实现，深不以为然。一方面是实现成本大，操作麻烦，再就是viewController的生命周期需要单独控制等。</p>
-<p>更推崇系统提供的UIPageViewController方法，这个方法本来是方便实现类似读书软件的翻页效果。</p>
+<p>左右滑动，显示左侧菜单。这种交互在2014年比较火，我最喜欢的实现效果是华住app。不过后台他也改成tab结构。</p>
+<p>这个Demo实在左侧菜单的基础上，增加为支持左右侧菜单。并且支持主视图缩放效果。</p>
+<p>后面还附上swift版本github项目。</p>
+<p>主要基于手势控制，以及缩放动画实现。再以及工程的设计思路。</p>
+<p>并且添加的手势滑动返回功能，见：<a href="http://kingundertree.github.io/2015/04/24/手势滑动返回/" target="_blank" rel="external">http://kingundertree.github.io/2015/04/24/手势滑动返回/</a></p>
 <h3 id="功能">功能</h3>
 <ol>
-<li>支持左右滑动快速切换viewController</li>
-<li>支持viewController和导航的相互控制</li>
-<li>支持viewController的切换效果和循环滚动</li>
+<li>支持右滑，显示左侧菜单</li>
+<li>支持左滑，显示右侧菜单</li>
+<li>支持左右侧菜单滑动切换</li>
+<li>支持手势滑动返回</li>
+<li>支持滑动时，主视图平滑缩放效果</li>
 </ol>
 <h3 id="实现机制">实现机制</h3>
 <ol>
-<li>基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate</li>
-<li>通过UIPageViewControllerDataSource 为 UIPageViewController 添加 viewControllerBeforeViewController 或 viewControllerAfterViewController ，实现视图的切换</li>
-<li>通过UIPageViewControllerDelegate，通知实现导航效果切换</li>
-<li>通过setViewControllers，实现点击导航切换viewcontrollers</li>
+<li>XXMenuVC基于viewController，add initWithRootViewController生成的PushBackNavigationController视图</li>
+<li>赋予XXMenuVC给 self.window.rootViewController</li>
+<li>在XXMenuVC add 左右菜单视图，并添加UITapGestureRecognizer、UIPanGestureRecognizer手势控制。</li>
+<li>XXMenuVC视图的移动控制KVO实现</li>
+<li>基于手势控制调整主视图的frame和缩放。</li>
+<li>通过XXMenuVC控制视图切换和左右菜单的交互</li>
 </ol>
 <h3 id="使用方法">使用方法</h3>
-<p>目前，所有功能都已经集成到XZPageViewController中，只继承XZPageViewController，然后实现XZPageViewControllerDataSource,XZPageViewControllerDelegate。</p>
-<h5 id="XZPageViewControllerDataSource">XZPageViewControllerDataSource</h5>
-<p>1.设置导航数量</p>
-<pre><code><span class="pp">- <span class="params">(float)</span>numOfPages;</span>
-</code></pre><p>2.设置导航宽度</p>
-<pre><code><span class="pp">- <span class="params">(float)</span>witdhOfNav;</span>
-</code></pre><p>3.导航标题</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">NSString</span> *)</span>titleOfNavAtIndex:<span class="params">(<span class="variable">NSInteger</span>)</span>index;</span>
-</code></pre><p>4.设置viewController</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">UIViewController</span> *)</span>viewPageController:<span class="params">(<span class="variable">XZPageViewController</span> *)</span>pageViewController contentViewControllerForNavAtIndex:<span class="params">(<span class="variable">NSInteger</span>)</span>index;</span>
-</code></pre><p>5.是否循环</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">BOOL</span>)</span>canPageViewControllerRecycle;</span>
-</code></pre><p>6.导航切换，viewcontroller是否动画展示</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">BOOL</span>)</span>canPageViewControllerAnimation;</span>
-</code></pre><h5 id="XZPageViewControllerDelegate">XZPageViewControllerDelegate</h5>
-<p>1.viewController切换成功事件</p>
-<pre><code><span class="pp">-<span class="params">(<span class="variable">UIViewController</span> *)</span>viewPageController:<span class="params">(<span class="variable">XZPageViewController</span> *)</span>pageViewController pageViewControllerChangedAtIndex:<span class="params">(<span class="variable">NSInteger</span>)</span>index;</span>
+<p>目前，所有功能都已经集成到XXMenuViewController中，需要定制XXLeftMenuView、XXRightMenuView。</p>
+<p>1.初始化</p>
+<p>在AppDelegate中add主视图XXMenuVC，并设置XXMenuVC为变量</p>
+<pre><code>XXMainViewController *mainVC = [[XXMainViewController alloc] init];
+PushBackNavigationController *nav = [[PushBackNavigationController alloc] initWithRootViewController:mainVC];
+<span class="keyword">if</span> (SYSTEM_VERSION_LESS_THAN(@<span class="string">"7.0"</span>)) {
+    [[<span class="built_in">UIApplication</span> sharedApplication] setStatusBarHidden:<span class="literal">TRUE</span>];
+}
+XXMenuVC = [[XXMenuViewController alloc] initWithRootVC:nav];
+<span class="keyword">if</span> (SYSTEM_VERSION_LESS_THAN(@<span class="string">"7.0"</span>)) {
+    [[<span class="built_in">UIApplication</span> sharedApplication] setStatusBarHidden:<span class="literal">NO</span>];
+}
+
+<span class="keyword">self</span><span class="variable">.window</span><span class="variable">.rootViewController</span> = XXMenuVC;
+</code></pre><p>2.设置左右菜单view</p>
+<pre><code><span class="attribute"> leftMenuView </span>=<span class="string"> [[XXLeftMenuView alloc] initWithFrame:frame];
+ rightMenuView = [[XXRightMenuView alloc] initWithFrame:frame];</span>
+</code></pre><p>3.显示隐藏左右菜单</p>
+<pre><code><span class="pp">- <span class="params">(void)</span>showMenu:<span class="params">(<span class="variable">BOOL</span>)</span>isLeftMenu;</span>
+</code></pre><p>4.设置初始化主视图</p>
+<pre><code><span class="pp">- <span class="params">(id)</span>initWithRootVC:<span class="params">(<span class="variable">UIViewController</span> *)</span>controller</span>
+</code></pre><p>5.左右菜单的操作事件，替换主视图</p>
+<pre><code><span class="pp">- <span class="params">(void)</span>replaceRootVC:<span class="params">(<span class="variable">UIViewController</span> *)</span>replaceVC isFromLeft:</span>
+</code></pre><p>6.XXMenuVC</p>
+<p>主视图的所有交互通过XXMenuVC实现</p>
+<pre><code><span class="attr_selector">[XXAppDelegate sharedAppDelegate]</span><span class="class">.XXMenuVC</span>
+</code></pre><h3 id="swift版本">swift版本</h3>
+<h4 id="github地址-1">github地址</h4>
+<p>xcode6.3 编译正常通过</p>
+<p>只实现主要功能，包括手势控制和左右菜单显示和隐藏</p>
+<pre><code><span class="label">https:</span>//github<span class="preprocessor">.com</span>/kingundertree/XXMenuBySwiftDemo
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/03/16/XZPageViewController/" data-id="k1vpjct7a6cb9fka" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/" data-id="o4aelo5oco3zl9mj" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a></li></ul>
 
     </footer>
   </div>

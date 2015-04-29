@@ -73,6 +73,154 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-XXMenuDemo，三栏式滑动菜单结构" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/" class="article-date">
+  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/XXMenuDemo/">XXMenuDemo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/XXMenuDemo/master/XXMenuGif.gif" alt="Mou icon"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/XXMenuDemo" target="_blank" rel="external">https://github.com/kingundertree/XXMenuDemo</a></p>
+<h3 id="说明">说明</h3>
+<p>左右滑动，显示左侧菜单。这种交互在2014年比较火，我最喜欢的实现效果是华住app。不过后台他也改成tab结构。</p>
+<p>这个Demo实在左侧菜单的基础上，增加为支持左右侧菜单。并且支持主视图缩放效果。</p>
+<p>后面还附上swift版本github项目。</p>
+<p>主要基于手势控制，以及缩放动画实现。再以及工程的设计思路。</p>
+<p>并且添加的手势滑动返回功能，见：<a href="http://kingundertree.github.io/2015/04/24/手势滑动返回/" target="_blank" rel="external">http://kingundertree.github.io/2015/04/24/手势滑动返回/</a></p>
+<h3 id="功能">功能</h3>
+<ol>
+<li>支持右滑，显示左侧菜单</li>
+<li>支持左滑，显示右侧菜单</li>
+<li>支持左右侧菜单滑动切换</li>
+<li>支持手势滑动返回</li>
+<li>支持滑动时，主视图平滑缩放效果</li>
+</ol>
+<h3 id="实现机制">实现机制</h3>
+<ol>
+<li>XXMenuVC基于viewController，add initWithRootViewController生成的PushBackNavigationController视图</li>
+<li>赋予XXMenuVC给 self.window.rootViewController</li>
+<li>在XXMenuVC add 左右菜单视图，并添加UITapGestureRecognizer、UIPanGestureRecognizer手势控制。</li>
+<li>XXMenuVC视图的移动控制KVO实现</li>
+<li>基于手势控制调整主视图的frame和缩放。</li>
+<li>通过XXMenuVC控制视图切换和左右菜单的交互</li>
+</ol>
+<h3 id="使用方法">使用方法</h3>
+<p>目前，所有功能都已经集成到XXMenuViewController中，需要定制XXLeftMenuView、XXRightMenuView。</p>
+<p>1.初始化</p>
+<p>在AppDelegate中add主视图XXMenuVC，并设置XXMenuVC为变量</p>
+<pre><code>XXMainViewController *mainVC = [[XXMainViewController alloc] init];
+PushBackNavigationController *nav = [[PushBackNavigationController alloc] initWithRootViewController:mainVC];
+<span class="keyword">if</span> (SYSTEM_VERSION_LESS_THAN(@<span class="string">"7.0"</span>)) {
+    [[<span class="built_in">UIApplication</span> sharedApplication] setStatusBarHidden:<span class="literal">TRUE</span>];
+}
+XXMenuVC = [[XXMenuViewController alloc] initWithRootVC:nav];
+<span class="keyword">if</span> (SYSTEM_VERSION_LESS_THAN(@<span class="string">"7.0"</span>)) {
+    [[<span class="built_in">UIApplication</span> sharedApplication] setStatusBarHidden:<span class="literal">NO</span>];
+}
+
+<span class="keyword">self</span><span class="variable">.window</span><span class="variable">.rootViewController</span> = XXMenuVC;
+</code></pre><p>2.设置左右菜单view</p>
+<pre><code><span class="attribute"> leftMenuView </span>=<span class="string"> [[XXLeftMenuView alloc] initWithFrame:frame];
+ rightMenuView = [[XXRightMenuView alloc] initWithFrame:frame];</span>
+</code></pre><p>3.显示隐藏左右菜单</p>
+<pre><code><span class="pp">- <span class="params">(void)</span>showMenu:<span class="params">(<span class="variable">BOOL</span>)</span>isLeftMenu;</span>
+</code></pre><p>4.设置初始化主视图</p>
+<pre><code><span class="pp">- <span class="params">(id)</span>initWithRootVC:<span class="params">(<span class="variable">UIViewController</span> *)</span>controller</span>
+</code></pre><p>5.左右菜单的操作事件，替换主视图</p>
+<pre><code><span class="pp">- <span class="params">(void)</span>replaceRootVC:<span class="params">(<span class="variable">UIViewController</span> *)</span>replaceVC isFromLeft:</span>
+</code></pre><p>6.XXMenuVC</p>
+<p>主视图的所有交互通过XXMenuVC实现</p>
+<pre><code><span class="attr_selector">[XXAppDelegate sharedAppDelegate]</span><span class="class">.XXMenuVC</span>
+</code></pre><h3 id="swift版本">swift版本</h3>
+<h4 id="github地址-1">github地址</h4>
+<p>xcode6.3 编译正常通过</p>
+<p>只实现主要功能，包括手势控制和左右菜单显示和隐藏</p>
+<pre><code><span class="label">https:</span>//github<span class="preprocessor">.com</span>/kingundertree/XXMenuBySwiftDemo
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/" data-id="o4aelo5oco3zl9mj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-微信搜索效果" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/29/微信搜索效果/" class="article-date">
+  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/29/微信搜索效果/">UISearchDisplayController，实现微信搜索效果</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/UISearchDisplayControllerDemo/master/Nav%20searchBar.gif" alt="Mou icon"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/UISearchDisplayControllerDemo" target="_blank" rel="external">https://github.com/kingundertree/UISearchDisplayControllerDemo</a></p>
+<h3 id="功能比较简单，主要是展示下效果，需要用的直接拿走">功能比较简单，主要是展示下效果，需要用的直接拿走</h3>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/29/微信搜索效果/" data-id="00z7f6oavnbruzc6" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-多功能UITableViewCell菜单" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/29/多功能UITableViewCell菜单/" class="article-date">
@@ -666,101 +814,6 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
 
 
   
-    <article id="post-思维的局限性" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/07/11/思维的局限性/" class="article-date">
-  <time datetime="2013-07-11T00:00:00.000Z" itemprop="datePublished">Jul 11 2013</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/07/11/思维的局限性/">思维的局限性</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>我一直很恐惧，那一天我老去的时候，子孙都在探索外星、坐时光机、玩多维电子设备，我却跟不上他们的脚步。</p>
-<p>我们身边有太多这样的例子，连00后和10后就开始代沟了。</p>
-<p>大部分人，因为自己的经历和意识，习惯性被系统因素影响。自己的意识也停留自己所在系统环境。久而久之，各种代沟就出来了。</p>
-<p>所以，我的恐惧是有原因的。我也正感受到，自己被这个时代所困扰。意识和思维方式，越来越和所经历的事情发生关系，而没有和未来，没有和这个世界更紧密一些。</p>
-<p>这个命题，比较宏大。我还是希望，我可以有足够的精力和热情，去探索未知的世界，汲取更多的能量，不管是思维方式还是意识，都不要局限于环境和经历。</p>
-<p>现在，我立下这个祝愿：永远不要局限于现在。但愿，等我老去的时候，还可以和小孩子一样对这个世界，充满热情和好奇。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/11/思维的局限性/" data-id="3m3700rx6l909zpj" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-懒惰的境界" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/07/09/懒惰的境界/" class="article-date">
-  <time datetime="2013-07-09T00:00:00.000Z" itemprop="datePublished">Jul 9 2013</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/07/09/懒惰的境界/">懒惰的境界</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>人是容易懒惰的，懒惰可以分为3个境界。</p>
-<p>1，逃避式懒惰：遇到任何事情，只要需要动手，就选择拒而远之，能不做就不做。最经典的，比如大多超级胖子，基本是吃胖的，然后就一辈子躺在床上继续吃。还有中国经典的故事，一个孩子太懒以致于他妈妈远出前把大饼做好，套在他脖子上，最好还是饿死了。饿死的原因是太懒，而不愿伸脖子去吃够不到的食物。<br>：：：这种情况，当然少之又少</p>
-<p>2，选择式懒惰：这种情况是最普遍的，因为人是存在懒惰的基因。遇到有挑战、没有吸引力或者费时费力的事情，就会找各种借口不做，或者用其他的方式来敷衍。比如，大部分考试前会投机，就是因为平时懒惰而没有准备充分，最后时刻冲刺一把。<br>：：：我也承认，我有这种倾向。但我有自己的底线，责任要求你做到的就必须做到。如果，有梦想或者金钱的动力，那就更好解决这个问题了。</p>
-<p>3，一劳永逸式懒惰：这种懒惰是很高级的。懒惰是本性的，不可回避。但是责任却会把你拉回到正轨，境界、情商再高点，就会试着一劳永逸式解决问题。比如，每天重复式做一件事情，很麻烦，就有人发明了洗碗机、麻将机、洗衣机等等。再如，自行车、骑车、火车、飞机，计算机，都是为了解放重复式工作而诞生的，也极大的促进世界的发展和进步。<br>：：：这种境界，也是我最高兴的。往往，确定一种规则和方法，就可以极大提升效率，解放效率。</p>
-<p>最近，一直在学习，在敲代码。如果谁可以发明不用敲代码巨可以编程的机器，那就牛逼了。甚至，谁可以发明代替学习的机器，岂不是更牛逼。当然，科幻片的机器人自我学习，统治地球的结局就免了。哥还想，自由的活下去。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/09/懒惰的境界/" data-id="8rnyg6u80uuug2vf" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
@@ -774,7 +827,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -783,7 +836,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -792,7 +845,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
+      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
     </div>
   </div>
 
@@ -801,7 +854,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -813,6 +866,14 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
       <ul>
         
           <li>
+            <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/29/微信搜索效果/">UISearchDisplayController，实现微信搜索效果</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
           </li>
         
@@ -822,14 +883,6 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
         
           <li>
             <a href="/2015/03/16/UITableView重用机制/">UITableView 重用机制</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/16/XZPageViewController/">XZPageViewController 类似搜狐新闻切换效果</a>
-          </li>
-        
-          <li>
-            <a href="/2014/07/27/swift初感/">swift初感</a>
           </li>
         
       </ul>

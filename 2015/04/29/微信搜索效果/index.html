@@ -3,17 +3,30 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Category: UIPageViewController | 夏至</title>
+  <title>UISearchDisplayController，实现微信搜索效果 | 夏至</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不懂产品的前端，不是优秀的Ios工程师">
-<meta property="og:type" content="website">
-<meta property="og:title" content="夏至">
-<meta property="og:url" content="http://yoursite.com/categories/UIPageViewController/">
+  <meta name="description" content="先上效果图
+
+github地址
+https://github.com/kingundertree/UISearchDisplayControllerDemo
+功能比较简单，主要是展示下效果，需要用的直接拿走">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UISearchDisplayController，实现微信搜索效果">
+<meta property="og:url" content="http://yoursite.com/2015/04/29/微信搜索效果/">
 <meta property="og:site_name" content="夏至">
-<meta property="og:description" content="不懂产品的前端，不是优秀的Ios工程师">
+<meta property="og:description" content="先上效果图
+
+github地址
+https://github.com/kingundertree/UISearchDisplayControllerDemo
+功能比较简单，主要是展示下效果，需要用的直接拿走">
+<meta property="og:image" content="https://raw.githubusercontent.com/kingundertree/UISearchDisplayControllerDemo/master/Nav%20searchBar.gif">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="夏至">
-<meta name="twitter:description" content="不懂产品的前端，不是优秀的Ios工程师">
+<meta name="twitter:title" content="UISearchDisplayController，实现微信搜索效果">
+<meta name="twitter:description" content="先上效果图
+
+github地址
+https://github.com/kingundertree/UISearchDisplayControllerDemo
+功能比较简单，主要是展示下效果，需要用的直接拿走">
 
   
     <link rel="alternative" href="/atom.xml" title="夏至" type="application/atom+xml">
@@ -71,16 +84,14 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-XZPageViewController" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-微信搜索效果" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2015/03/16/XZPageViewController/" class="article-date">
-  <time datetime="2015-03-15T16:00:00.000Z" itemprop="datePublished">Mar 16 2015</time>
+    <a href="/2015/04/29/微信搜索效果/" class="article-date">
+  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
 </a>
     
   <div class="article-category">
-    <a class="article-category-link" href="/categories/UIPageViewController/">UIPageViewController</a>
+    <a class="article-category-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a>
   </div>
 
   </div>
@@ -90,8 +101,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/16/XZPageViewController/">XZPageViewController 类似搜狐新闻切换效果</a>
+    <h1 class="article-title" itemprop="name">
+      UISearchDisplayController，实现微信搜索效果
     </h1>
   
 
@@ -100,60 +111,45 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h3 id="先上效果图">先上效果图</h3>
-<p><img src="https://raw.githubusercontent.com/kingundertree/XZPageViewController/master/pageControl.gif" alt="Mou icon"></p>
+<p><img src="https://raw.githubusercontent.com/kingundertree/UISearchDisplayControllerDemo/master/Nav%20searchBar.gif" alt="Mou icon"></p>
 <h3 id="github地址">github地址</h3>
-<p><a href="https://github.com/kingundertree/XZPageViewController" target="_blank" rel="external">https://github.com/kingundertree/XZPageViewController</a></p>
-<h3 id="说明">说明</h3>
-<p>见过一些类似的设计，但是很多都是采用UIScrollView，add viewController，然后自己监控UIScrollView的变化值实现导航和viewController的通讯，甚至有采用UITableView横过来的方式实现，深不以为然。一方面是实现成本大，操作麻烦，再就是viewController的生命周期需要单独控制等。</p>
-<p>更推崇系统提供的UIPageViewController方法，这个方法本来是方便实现类似读书软件的翻页效果。</p>
-<h3 id="功能">功能</h3>
-<ol>
-<li>支持左右滑动快速切换viewController</li>
-<li>支持viewController和导航的相互控制</li>
-<li>支持viewController的切换效果和循环滚动</li>
-</ol>
-<h3 id="实现机制">实现机制</h3>
-<ol>
-<li>基于UIPageViewController以及其UIPageViewControllerDataSource，UIPageViewControllerDelegate</li>
-<li>通过UIPageViewControllerDataSource 为 UIPageViewController 添加 viewControllerBeforeViewController 或 viewControllerAfterViewController ，实现视图的切换</li>
-<li>通过UIPageViewControllerDelegate，通知实现导航效果切换</li>
-<li>通过setViewControllers，实现点击导航切换viewcontrollers</li>
-</ol>
-<h3 id="使用方法">使用方法</h3>
-<p>目前，所有功能都已经集成到XZPageViewController中，只继承XZPageViewController，然后实现XZPageViewControllerDataSource,XZPageViewControllerDelegate。</p>
-<h5 id="XZPageViewControllerDataSource">XZPageViewControllerDataSource</h5>
-<p>1.设置导航数量</p>
-<pre><code><span class="pp">- <span class="params">(float)</span>numOfPages;</span>
-</code></pre><p>2.设置导航宽度</p>
-<pre><code><span class="pp">- <span class="params">(float)</span>witdhOfNav;</span>
-</code></pre><p>3.导航标题</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">NSString</span> *)</span>titleOfNavAtIndex:<span class="params">(<span class="variable">NSInteger</span>)</span>index;</span>
-</code></pre><p>4.设置viewController</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">UIViewController</span> *)</span>viewPageController:<span class="params">(<span class="variable">XZPageViewController</span> *)</span>pageViewController contentViewControllerForNavAtIndex:<span class="params">(<span class="variable">NSInteger</span>)</span>index;</span>
-</code></pre><p>5.是否循环</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">BOOL</span>)</span>canPageViewControllerRecycle;</span>
-</code></pre><p>6.导航切换，viewcontroller是否动画展示</p>
-<pre><code><span class="pp">- <span class="params">(<span class="variable">BOOL</span>)</span>canPageViewControllerAnimation;</span>
-</code></pre><h5 id="XZPageViewControllerDelegate">XZPageViewControllerDelegate</h5>
-<p>1.viewController切换成功事件</p>
-<pre><code><span class="pp">-<span class="params">(<span class="variable">UIViewController</span> *)</span>viewPageController:<span class="params">(<span class="variable">XZPageViewController</span> *)</span>pageViewController pageViewControllerChangedAtIndex:<span class="params">(<span class="variable">NSInteger</span>)</span>index;</span>
-</code></pre>
+<p><a href="https://github.com/kingundertree/UISearchDisplayControllerDemo" target="_blank" rel="external">https://github.com/kingundertree/UISearchDisplayControllerDemo</a></p>
+<h3 id="功能比较简单，主要是展示下效果，需要用的直接拿走">功能比较简单，主要是展示下效果，需要用的直接拿走</h3>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/03/16/XZPageViewController/" data-id="k1vpjct7a6cb9fka" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/04/29/微信搜索效果/" data-id="00z7f6oavnbruzc6" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a></li></ul>
 
     </footer>
   </div>
   
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          XXMenuDemo，三栏式滑动菜单结构
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/29/多功能UITableViewCell菜单/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">多功能UITableViewCell菜单</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-
-  
-  
 </section>
         
           <aside id="sidebar">

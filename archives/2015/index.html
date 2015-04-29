@@ -73,6 +73,89 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-多功能UITableViewCell菜单" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/29/多功能UITableViewCell菜单/" class="article-date">
+  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/MultiFunctionCell/master/multFunCell.gif" alt="Mou icon"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/XZPageViewController" target="_blank" rel="external">https://github.com/kingundertree/XZPageViewController</a></p>
+<h3 id="功能">功能</h3>
+<ol>
+<li>支持定制UITableViewCell菜单，通过滑动UITableViewCell显示左右侧菜单选项</li>
+<li>支持cell的重用，以及单个cell的菜单定制</li>
+</ol>
+<h3 id="实现机制">实现机制</h3>
+<ol>
+<li>定制UITableViewCell，在UITableViewCell.contentView上添加UIScrollView作为主视图，并绑定UIPanGestureRecognizer手势</li>
+<li>定义左右菜单视图，置于UIScrollView之下</li>
+<li>通过UIPanGestureRecognizer的事件控制UIScrollView的frame实现菜单的显示和隐藏</li>
+<li>定制UITableView，通过OverLayViewDelegate控制罩层的显示和隐藏</li>
+</ol>
+<h3 id="使用方法">使用方法</h3>
+<h5 id="UITableView">UITableView</h5>
+<p>继承MultiFunctionTableView</p>
+<pre><code>self<span class="preprocessor">.tableList</span> = [[MultiFunctionTableView alloc] initWithFrame:self<span class="preprocessor">.view</span><span class="preprocessor">.bounds</span> style:UITableViewStylePlain]<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.delegate</span> = self<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.dataSource</span> = self<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.rowHeight</span> = <span class="number">80</span><span class="comment">;</span>
+[self<span class="preprocessor">.view</span> addSubview:self<span class="preprocessor">.tableList</span>]<span class="comment">;</span>
+</code></pre><p>Datasource的cellForRow方法中实现<br>HomeViewCell继承MultiFunctionCell即可，并设置cell.cellActionDelegate = self.tableList即可。其他都不用care了</p>
+<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentify = @<span class="string">"cell"</span>;
+    HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
+    <span class="keyword">if</span> (!cell) {
+        cell = <span class="string">[[HomeViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                   reuseIdentifier:cellIdentify
+                               containingTableView:tableView
+                                leftUtilityButtons:@[@"left1"]
+                               rightUtilityButtons:@[@"right1",@"right2"]]</span>;
+        cell.cellActionDelegate = self.tableList;
+        [cell configCell:<span class="keyword">nil</span> index:indexPath];
+    }
+
+
+    <span class="keyword">return</span> cell;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/29/多功能UITableViewCell菜单/" data-id="gceyh19uqd3ovd8c" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-手势滑动返回" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/24/手势滑动返回/" class="article-date">
@@ -194,6 +277,72 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
 
 
   
+    <article id="post-UITableView重用机制" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/03/16/UITableView重用机制/" class="article-date">
+  <time datetime="2015-03-15T16:00:00.000Z" itemprop="datePublished">Mar 16 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/03/16/UITableView重用机制/">UITableView 重用机制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>最近在看这个瀑布流的项目：<a href="https://github.com/pingyourid/waterView" target="_blank" rel="external">https://github.com/pingyourid/waterView</a></p>
+<p>他自称是可以重用的，看到最后发现，这个demo的瀑布流功能做的蛮深入的。</p>
+<p>他通过设置reuseIdentifier，视图滚动时进进出出实现视图的重复利用。区别于UITableView的UITableViewCell的重用机制，瀑布流Demo完全实现了手动控制。</p>
+<p>UITableView虽然用了无数次，但是一直没有自习整理过他的重用机制。今天统一整理下，也方便日后实现自定义的重复功能。</p>
+<h4 id="重用">重用</h4>
+<ol>
+<li>重用机制，主要用在UIScollView视图中，子视图会频繁上下滑动，但是自子视图的结构非常类似。通过重用，避免大量的内存开销。尤其是在iphone 单核时代。</li>
+<li>UITableView在cellForRow方法中dequeueReusableCellWithIdentifier设置重用标记。</li>
+<li>当面屏幕中所显示的子视图都是真实存在，相互之间不重用。但是当前子视图可以重用已经init但是已经移除视图外的子视图。</li>
+</ol>
+<h4 id="实现机制">实现机制</h4>
+<p>假如当前屏幕UITableView 可以最多显示6个cell，用3种不同的cell，也就是需要设置3个不同的identifier。</p>
+<ol>
+<li>cellForRow最多生成可以占满屏幕的cell，也就是6个。这个时候，所有的cell都不会加入到reuse cell queue。也就是生成了2组不同identifier的cell，共6个。</li>
+<li>向上滑动，生成第7个cell。</li>
+<li>继续滑动，第1个cell隐藏时，此cell加入reuse cell queue。</li>
+<li>向上滑动，生成第8个cell。</li>
+<li>继续滑动，第2个cell隐藏时，此cell加入reuse cell queue。</li>
+<li>向上滑动，生成第9个cell。</li>
+<li>继续滑动，第3个cell隐藏时，此cell加入reuse cell queue。</li>
+<li>向上滑动，生成第10个cell。</li>
+<li>此时dequeueReusableCellWithIdentifier可以从reuse cell queue获取到reuse cell，就不在创建新的cell，直接返回，重新配置数据即可，并把此cell从队列去移除。</li>
+<li>到第12个cell，都是此逻辑。然后每3个cell以此往复。</li>
+</ol>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/03/16/UITableView重用机制/" data-id="a1is3wtevzaar0rx" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-XZPageViewController" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/03/16/XZPageViewController/" class="article-date">
@@ -274,72 +423,6 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
 
 
   
-    <article id="post-UITableView重用机制" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/03/16/UITableView重用机制/" class="article-date">
-  <time datetime="2015-03-15T16:00:00.000Z" itemprop="datePublished">Mar 16 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/03/16/UITableView重用机制/">UITableView 重用机制</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>最近在看这个瀑布流的项目：<a href="https://github.com/pingyourid/waterView" target="_blank" rel="external">https://github.com/pingyourid/waterView</a></p>
-<p>他自称是可以重用的，看到最后发现，这个demo的瀑布流功能做的蛮深入的。</p>
-<p>他通过设置reuseIdentifier，视图滚动时进进出出实现视图的重复利用。区别于UITableView的UITableViewCell的重用机制，瀑布流Demo完全实现了手动控制。</p>
-<p>UITableView虽然用了无数次，但是一直没有自习整理过他的重用机制。今天统一整理下，也方便日后实现自定义的重复功能。</p>
-<h4 id="重用">重用</h4>
-<ol>
-<li>重用机制，主要用在UIScollView视图中，子视图会频繁上下滑动，但是自子视图的结构非常类似。通过重用，避免大量的内存开销。尤其是在iphone 单核时代。</li>
-<li>UITableView在cellForRow方法中dequeueReusableCellWithIdentifier设置重用标记。</li>
-<li>当面屏幕中所显示的子视图都是真实存在，相互之间不重用。但是当前子视图可以重用已经init但是已经移除视图外的子视图。</li>
-</ol>
-<h4 id="实现机制">实现机制</h4>
-<p>假如当前屏幕UITableView 可以最多显示6个cell，用3种不同的cell，也就是需要设置3个不同的identifier。</p>
-<ol>
-<li>cellForRow最多生成可以占满屏幕的cell，也就是6个。这个时候，所有的cell都不会加入到reuse cell queue。也就是生成了2组不同identifier的cell，共6个。</li>
-<li>向上滑动，生成第7个cell。</li>
-<li>继续滑动，第1个cell隐藏时，此cell加入reuse cell queue。</li>
-<li>向上滑动，生成第8个cell。</li>
-<li>继续滑动，第2个cell隐藏时，此cell加入reuse cell queue。</li>
-<li>向上滑动，生成第9个cell。</li>
-<li>继续滑动，第3个cell隐藏时，此cell加入reuse cell queue。</li>
-<li>向上滑动，生成第10个cell。</li>
-<li>此时dequeueReusableCellWithIdentifier可以从reuse cell queue获取到reuse cell，就不在创建新的cell，直接返回，重新配置数据即可，并把此cell从队列去移除。</li>
-<li>到第12个cell，都是此逻辑。然后每3个cell以此往复。</li>
-</ol>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/03/16/UITableView重用机制/" data-id="a1is3wtevzaar0rx" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UITableView/">UITableView</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
   
 </section>
         
@@ -349,7 +432,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -358,7 +441,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -367,7 +450,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
+      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
     </div>
   </div>
 
@@ -376,7 +459,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -388,11 +471,11 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
       <ul>
         
           <li>
-            <a href="/2015/04/24/手势滑动返回/">手势滑动返回，多种实现方案</a>
+            <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
           </li>
         
           <li>
-            <a href="/2015/03/16/XZPageViewController/">XZPageViewController 类似搜狐新闻切换效果</a>
+            <a href="/2015/04/24/手势滑动返回/">手势滑动返回，多种实现方案</a>
           </li>
         
           <li>
@@ -400,11 +483,11 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
           </li>
         
           <li>
-            <a href="/2014/07/27/swift初感/">swift初感</a>
+            <a href="/2015/03/16/XZPageViewController/">XZPageViewController 类似搜狐新闻切换效果</a>
           </li>
         
           <li>
-            <a href="/2014/07/15/hexo github 创建博客/">hexo github 创建个人博客</a>
+            <a href="/2014/07/27/swift初感/">swift初感</a>
           </li>
         
       </ul>

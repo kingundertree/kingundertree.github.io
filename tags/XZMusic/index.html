@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Tag: XZMusic | 夏至</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="不懂产品的前端，不是优秀的Ios工程师">
+<meta property="og:type" content="website">
+<meta property="og:title" content="夏至">
+<meta property="og:url" content="http://yoursite.com/tags/XZMusic/">
+<meta property="og:site_name" content="夏至">
+<meta property="og:description" content="不懂产品的前端，不是优秀的Ios工程师">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="夏至">
+<meta name="twitter:description" content="不懂产品的前端，不是优秀的Ios工程师">
+
+  
+    <link rel="alternative" href="/atom.xml" title="夏至" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+
+  <!--[if lt IE 9]><script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7/html5shiv.min.js"></script><![endif]-->
+  
+</head>
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">夏至</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">前端朝圣客</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="http://www.baidu.com/baidu" method="get" accept-charset="utf-8" class="search-form">
+          <input type="search" name="word" maxlength="20" class="search-form-input" placeholder="Search">
+          <input type="submit" value="" class="search-form-submit">
+          <input name=tn type=hidden value="bds">
+          <input name=cl type=hidden value="3">
+          <input name=ct type=hidden value="2097152">
+          <input type="hidden" name="si" value="yoursite.com">
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main">
+  
+    <article id="post-XZMusic构架设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/02/XZMusic构架设计/" class="article-date">
+  <time datetime="2015-05-01T16:00:00.000Z" itemprop="datePublished">May 2 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/XZMusic/">XZMusic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/XZMusic/master/XZMusic.gif" alt="XZMusic"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/XZMusic" target="_blank" rel="external">https://github.com/kingundertree/XZMusic</a></p>
+<h3 id="说明">说明</h3>
+<ol>
+<li>本md主要主要通过XZMusic分析下常见的iOS项目的搭建以及常见模块的设计和划分</li>
+<li>本项目的音乐信息取自本地SQL数据，通过FMDB获取</li>
+<li>音乐的统计信息采用CoreData实现</li>
+<li>歌曲资源和歌词取自网络</li>
+<li>播放器采用DOUAudio</li>
+<li>采用pod方式管理第三方库</li>
+</ol>
+<h3 id="功能">功能</h3>
+<ol>
+<li>本地搜索歌曲</li>
+<li>歌曲播放和下载、显示歌词</li>
+<li>歌曲的基本统计，包括点赞、播放次数等</li>
+<li>微博登录</li>
+</ol>
+<h3 id="主要模块">主要模块</h3>
+<ol>
+<li>网络请求模块XZNetWorking：集成AFNetworking，支持常见的get/post/restfulget/getfulget常见请求</li>
+<li>音乐下载模块MusicDownLoad：支持歌曲、歌词下载，包括本地存储处理，已经下载进度及常见信息回调</li>
+<li>微博登录libWeiboSDK：配合LoginManager使用</li>
+<li>UI主结构XZMenu：实现左右结构，滑动显示菜单</li>
+<li>UITabBar结构XZTabBar</li>
+</ol>
+<h3 id="构架设计">构架设计</h3>
+<pre><code>XZMusic
+    <span class="built_in">Data</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>本地化数据处理，包括本地音乐信息及音乐统计停息
+        XZMusicDataCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>coredata表信息输入输出接口
+        LKDBCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>SQL表信息输入输出接口
+        Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>本地数据库数据模型
+    Libs<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>不支持pod的库
+        DOUAudio<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>音乐播放，支持在线播放
+        XZNetWorking<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>网络请求库，集成AFNetworking库
+        libWeiboSDK<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>微博登录SDK
+    Manager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>APP业务操作管理类
+        GlobalManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app全局性参数管理，比如当前播放musicId、列表信息，以及下载的实时信息
+        MusicDownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>下载功能模块，支持音乐和歌词下载，本地存储处理，已经下载进度及常见信息回调
+        RequestManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>网络请求的请求
+        LoginManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>登录操作管理
+    Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app常见业务的model
+    Resource<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>常见资源，包括图片等
+    Views<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>视图资源，也就是app最重要的模块
+        component<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>通用的view类，包括base VC、table、Category、手势控件等
+        DownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>下载VC
+        Login<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>登录VC
+        Loving<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>最爱VC
+        Search<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>搜索VC
+        Setting<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>设置VC
+        ViewController<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>子页面VC
+        XZMenu<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>app主view结构
+        XZTabBar<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>UITabbar自定义结构
+    XZAppDelegate<span class="built_in">.</span>h
+    XZAppDelegate<span class="built_in">.</span>m
+
+Pods<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>支持第三方的类库
+
+    platform :ios, <span class="string">"6.0"</span>
+    pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.0'</span>
+    pod <span class="string">'pop'</span>, <span class="string">'~&gt; 1.0'</span>
+    pod <span class="string">'FMDB'</span>
+    pod <span class="string">'LKDBHelper'</span>, :head
+    pod <span class="string">'MBProgressHUD'</span>, <span class="string">'~&gt; 0.8'</span>
+    pod <span class="string">'MultiFunctionCell'</span>, :git <span class="subst">=&gt;</span> <span class="string">'https://github.com/kingundertree/MultiFunctionCell'</span>
+</code></pre><h3 id="补充">补充</h3>
+<ol>
+<li>后面的文章中单独对下载模块和网络请求模块的设计做详细阐述</li>
+<li>本项目的设计还有很多不足之处，主要体现在UI的左右结构设计和GCD使用还不够熟练</li>
+</ol>
+<h4 id="时间记录">时间记录</h4>
+<ol>
+<li>2014.8.22 周浦万达广场麦当劳，创建项目，实现pod管理和基本配置</li>
+<li>2014.8.28 公司，完成左右菜单结构，以及基本TabBar功能</li>
+<li>2014.8.29 公司，结构完善，引入手势控件</li>
+<li>2014.8.31 临港豪生，实现左侧菜单切换基本功能</li>
+<li>2014.9.22 实现微博登录和登录后信息</li>
+<li>2014.10.22 逐步实现asyncGetWithServiceID和的同步和异步方法，流程走通，待测试</li>
+<li>2014.10.29 调试url参数，service阶段</li>
+<li>2013.11.2 调试XZNetWork Get请求成功。api请求告一段落</li>
+<li>add LKDBHelper，实现歌手列表搜索，需要设计搜索模块</li>
+<li>add search singerList ViewController</li>
+<li>add search singerSongs Request</li>
+<li>11.13 add DOUAudioPlayer 实现播放歌曲功能</li>
+<li>11.22 实现本地音乐、歌词下载，以及本地播放功能</li>
+<li>11.23 实现歌词播放，进度同步</li>
+<li>12.2 add 播放暂停控制，以及其他ui</li>
+<li>12.6 add 子view 下载功能</li>
+<li>12.14 add 歌曲播放数据库读写记录操作</li>
+</ol>
+<h3 id="需要fix_方法">需要fix 方法</h3>
+<p>LKDBHelper.m</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">{</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithDBName:@<span class="string">"FreeMusic"</span>];</div><div class="line">}</div><div class="line"></div><div class="line">+(<span class="built_in">NSString</span>*)getDBPathWithDBName:(<span class="built_in">NSString</span>*)dbName</div><div class="line">{</div><div class="line">    <span class="built_in">NSString</span>* fileName = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span>([dbName hasSuffix:@<span class="string">".db"</span>] == <span class="literal">NO</span>) {</div><div class="line">        fileName = [<span class="built_in">NSString</span> stringWithFormat:@<span class="string">"%@.db"</span>,dbName];</div><div class="line">    }</div><div class="line">    <span class="keyword">else</span> {</div><div class="line">        fileName = dbName;</div><div class="line">    }</div><div class="line">    </div><div class="line"><span class="comment">//    NSString* filePath = [LKDBUtils getPathForDocuments:fileName inDir:@"db"];</span></div><div class="line">    <span class="built_in">NSString</span>* filePath = [LKDBUtils getPathForDocuments:fileName inDir:<span class="literal">nil</span>];</div><div class="line">    <span class="keyword">return</span> filePath;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/02/XZMusic构架设计/" data-id="83v282aqxs5j8h59" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XZMusic/">XZMusic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+  
+</section>
+        
+          <aside id="sidebar">
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Categories</h3>
+    <div class="widget">
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZDownloadTask/">XZDownloadTask</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZMusic/">XZMusic</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZDownloadTask/">XZDownloadTask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZMusic/">XZMusic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/XZDownloadTask/" style="font-size: 10.00px;">XZDownloadTask</a><a href="/tags/XZMusic/" style="font-size: 10.00px;">XZMusic</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2015/05/02/多任务下载(支持后台下载)/">多任务下载(支持后台下载)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/29/微信搜索效果/">UISearchDisplayController，实现微信搜索效果</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Links</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="http://reqianduan.com">热前端</a>
+          </li>
+        
+          <li>
+            <a href="http://xiguabaobao.com">西瓜宝宝主题站</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2015 xiazer<br>
+      Powered by <a href="http://zespia.tw/hexo/" target="_blank" rel="external nofollow">Hexo</a>
+      .
+      Theme by <a href="http://xiguabaobao.com/" target="_blank" rel="external nofollow">西瓜宝宝</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+
+
+
+<script src="/js/script.js" type="text/javascript"></script>
+
+  </div>
+</body>
+</html>

@@ -390,6 +390,60 @@
 
 
   
+    <article id="post-webapp技巧系列2-键盘显示和隐藏控制(2)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/" class="article-date">
+  <time datetime="2013-06-30T00:00:00.000Z" itemprop="datePublished">Jun 30 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/随笔/">随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/">webapp技巧系列2-键盘显示和隐藏控制(2)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在webapp中，我们点击文本框，可以显示键盘。点击键盘上的“完成”，可以隐藏键盘。</p>
+<p>按照之前文章《webapp之结构布局实现方案》介绍（回复数字8可以阅读），页面是不存在刷新，只是布局之间切换。这个时候会存在，文本框输入内容后，点击webapp上按钮执行操作后，切换到下一个页面，但是键盘仍然存在并未隐藏。</p>
+<p>这样的情况相对尴尬，为了避免这种不流畅的体验，又怎么可以解决呢？</p>
+<p>在web中，页面刷新，键盘会自动消失，按照这个思路，如果如果文本框节点消失，键盘也会消失。</p>
+<p>有了这个思路就好办</p>
+<p>比如有一个文本框</p>
+<pre><code>&lt;div <span class="keyword">class</span>=<span class="string">"inputline"</span>&gt;&lt;input <span class="class"><span class="keyword">type</span>=</span><span class="string">"search"</span> <span class="keyword">class</span>=<span class="string">"searchinput"</span> placeHolder=<span class="string">"请输入内容进行搜索"</span>&gt;&lt;/div&gt;
+</code></pre><p>用户输入内容后，会切换到另外一个页面显示搜索结果，按照原来的方式，可恶的键盘会遮盖在上面，巨操蛋。</p>
+<p>那按照新的思路，用户点击搜索按钮后,获取负节点，$(“.inputline).empty(),即可隐藏键盘。再顺利进入下一页。<br>这种做法，虽然能够实现问题，但也有很多负面效果。</p>
+<p>比如：<br>文本框效果，内容样式变化导致的突兀感。</p>
+<p>我的做法是，文本框一律-webkit-appearance:none 处理，文本框样式交给父元素实现。并且在父元素中定位一个备用节点，可以获取文本框内容，默认hidden。一旦文本框节点清空，备用节点显示，代替文本框的输入内容。这个就要处理好css问题，不过相信对于前端这也不是问题。</p>
+<p>明天继续关于键盘控制，主要讲，怎么利用input实现键盘上按键的搜索功能。绝对仿真，和原生app效果极其类似。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/" data-id="uuqi8lsvwxl9f5qp" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-webapp技巧系列(2)-文本框功能和键盘界面控制(1)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/" class="article-date">
@@ -435,60 +489,6 @@
     </div>
     <footer class="article-footer">
       <a data-url="http://yoursite.com/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/" data-id="now0hex6xgshchki" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-webapp技巧系列2-键盘显示和隐藏控制(2)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/" class="article-date">
-  <time datetime="2013-06-30T00:00:00.000Z" itemprop="datePublished">Jun 30 2013</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/">webapp技巧系列2-键盘显示和隐藏控制(2)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在webapp中，我们点击文本框，可以显示键盘。点击键盘上的“完成”，可以隐藏键盘。</p>
-<p>按照之前文章《webapp之结构布局实现方案》介绍（回复数字8可以阅读），页面是不存在刷新，只是布局之间切换。这个时候会存在，文本框输入内容后，点击webapp上按钮执行操作后，切换到下一个页面，但是键盘仍然存在并未隐藏。</p>
-<p>这样的情况相对尴尬，为了避免这种不流畅的体验，又怎么可以解决呢？</p>
-<p>在web中，页面刷新，键盘会自动消失，按照这个思路，如果如果文本框节点消失，键盘也会消失。</p>
-<p>有了这个思路就好办</p>
-<p>比如有一个文本框</p>
-<pre><code>&lt;div <span class="keyword">class</span>=<span class="string">"inputline"</span>&gt;&lt;input <span class="class"><span class="keyword">type</span>=</span><span class="string">"search"</span> <span class="keyword">class</span>=<span class="string">"searchinput"</span> placeHolder=<span class="string">"请输入内容进行搜索"</span>&gt;&lt;/div&gt;
-</code></pre><p>用户输入内容后，会切换到另外一个页面显示搜索结果，按照原来的方式，可恶的键盘会遮盖在上面，巨操蛋。</p>
-<p>那按照新的思路，用户点击搜索按钮后,获取负节点，$(“.inputline).empty(),即可隐藏键盘。再顺利进入下一页。<br>这种做法，虽然能够实现问题，但也有很多负面效果。</p>
-<p>比如：<br>文本框效果，内容样式变化导致的突兀感。</p>
-<p>我的做法是，文本框一律-webkit-appearance:none 处理，文本框样式交给父元素实现。并且在父元素中定位一个备用节点，可以获取文本框内容，默认hidden。一旦文本框节点清空，备用节点显示，代替文本框的输入内容。这个就要处理好css问题，不过相信对于前端这也不是问题。</p>
-<p>明天继续关于键盘控制，主要讲，怎么利用input实现键盘上按键的搜索功能。绝对仿真，和原生app效果极其类似。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/" data-id="uuqi8lsvwxl9f5qp" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -630,7 +630,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZDownloadTask/">XZDownloadTask</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZMusic/">XZMusic</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -639,7 +639,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZDownloadTask/">XZDownloadTask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZMusic/">XZMusic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -648,7 +648,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
+      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/XZDownloadTask/" style="font-size: 10.00px;">XZDownloadTask</a><a href="/tags/XZMusic/" style="font-size: 10.00px;">XZMusic</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
     </div>
   </div>
 
@@ -657,7 +657,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -669,6 +669,14 @@
       <ul>
         
           <li>
+            <a href="/2015/05/02/多任务下载(支持后台下载)/">多任务下载(支持后台下载)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
           </li>
         
@@ -678,14 +686,6 @@
         
           <li>
             <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/24/手势滑动返回/">手势滑动返回，多种实现方案</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/16/UITableView重用机制/">UITableView 重用机制</a>
           </li>
         
       </ul>

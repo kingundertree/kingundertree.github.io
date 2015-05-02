@@ -73,6 +73,434 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-多任务下载(支持后台下载)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/02/多任务下载(支持后台下载)/" class="article-date">
+  <time datetime="2015-05-01T16:00:00.000Z" itemprop="datePublished">May 2 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/XZDownloadTask/">XZDownloadTask</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/02/多任务下载(支持后台下载)/">多任务下载(支持后台下载)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/XZDownloadTask/master/XZDownlod.gif" alt="XZDownloadTask"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/XZDownloadTask" target="_blank" rel="external">https://github.com/kingundertree/XZDownloadTask</a></p>
+<h3 id="说明">说明</h3>
+<p>之前坐过几版下载的demo，要么不支持多任务、要么不支持后台下载或者对设计不满意。</p>
+<p>这次重新设计新的模块，支持单任务、多任务、后台下载。</p>
+<p>保留一个彩蛋，供下次优化。</p>
+<h3 id="功能">功能</h3>
+<ol>
+<li>支持单个任务下载，实现下载、暂停、重新下载、取消等。</li>
+<li>单个任务支持后台下载，下载内容存储和下载信息回调，包括下载存储url和下载进度</li>
+<li>支持多任务下载，包括批量下载、批量暂停、批量取消、批量重启。支持单个任务设置是否后台下载。同样支持单个任务的进度等信息回调。</li>
+</ol>
+<h3 id="实现机制">实现机制</h3>
+<ol>
+<li>下载基于iOS7 NSURLSessionDownloadTask 实现，通过配置NSUrlSession实现</li>
+<li>通过NSURLSession配置backgroundSessionConfigurationWithIdentifier，实现后台下载</li>
+<li>通过NSURLSession配置defaultSessionConfiguration，实现普通下载</li>
+<li>通过NSURLSessionDownloadDelegate的代理方法，获取下载进度进度、下载成功失败以及后台下载完成信息</li>
+</ol>
+<h3 id="设计模式">设计模式</h3>
+<pre><code>XZDownloadTask<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>下载类
+    XZDownloadManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>下载主功能实现区
+    XZDownloadGroupManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>多人下载管理类
+    XZDownloadElement<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>每个下载任务的辅助类
+    XZDownloadResponse<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>下载成功失败进度的响应类
+</code></pre><h3 id="单任务下载实现">单任务下载实现</h3>
+<p>1.创建下载任务<br>    通过isDownloadBackground分别创建常规下载任务或后台下载任务。</p>
+<pre><code>- (<span class="keyword">void</span>)configDownloadInfo:(<span class="built_in">NSString</span> *) downloadStr isDownloadBackground:(<span class="built_in">BOOL</span>)isDownloadBackground identifier:(<span class="built_in">NSString</span> *)identifier succuss:(<span class="keyword">void</span> (^)(XZDownloadResponse *response)) succuss fail:(<span class="keyword">void</span>(^)(XZDownloadResponse *response)) fail progress:(<span class="keyword">void</span>(^)(XZDownloadResponse *response)) progress cancle:(<span class="keyword">void</span>(^)(XZDownloadResponse *response)) cancle pause:(<span class="keyword">void</span>(^)(XZDownloadResponse *response)) pause resume:(<span class="keyword">void</span>(^)(XZDownloadResponse *response)) resume{
+    <span class="keyword">self</span><span class="variable">.downloadSuccuss</span> = succuss;
+    <span class="keyword">self</span><span class="variable">.downloadFail</span> = fail;
+    <span class="keyword">self</span><span class="variable">.downloadProgress</span> = progress;
+    <span class="keyword">self</span><span class="variable">.downloadCancle</span> = cancle;
+    <span class="keyword">self</span><span class="variable">.downloadPause</span> = pause;
+    <span class="keyword">self</span><span class="variable">.downloadResume</span> = resume;
+
+    <span class="keyword">self</span><span class="variable">.identifier</span> = identifier ? identifier : [[NSProcessInfo processInfo] globallyUniqueString];
+
+    <span class="keyword">if</span> (isDownloadBackground) {
+        [<span class="keyword">self</span> startBackgroundDownload:downloadStr identifier:<span class="keyword">self</span><span class="variable">.identifier</span>];
+    } <span class="keyword">else</span> {
+        [<span class="keyword">self</span> startNormalDownload:downloadStr];
+    }
+}
+</code></pre><p>2.常规下载任务</p>
+<pre><code>- (<span class="keyword">void</span>)startNormalDownload:(<span class="built_in">NSString</span> *)downloadStr {
+    <span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:downloadStr]];
+    <span class="keyword">self</span><span class="variable">.normalSessionTask</span> = [<span class="keyword">self</span><span class="variable">.normalSession</span> downloadTaskWithRequest:request];
+    [<span class="keyword">self</span><span class="variable">.normalSessionTask</span> resume];
+}
+
+- (NSURLSession *)normalSession {
+    <span class="keyword">if</span> (!_normalSession) {
+        NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
+        _normalSession = [NSURLSession sessionWithConfiguration:sessionConfig delegate:<span class="keyword">self</span> delegateQueue:<span class="literal">nil</span>];
+        _normalSession<span class="variable">.sessionDescription</span> = @<span class="string">"normal NSURLSession"</span>;
+    }
+
+    <span class="keyword">return</span> _normalSession;
+}
+</code></pre><p>3.后台下载任务</p>
+<pre><code>- (<span class="keyword">void</span>)startBackgroundDownload:(<span class="built_in">NSString</span> *)downloadStr identifier:(<span class="built_in">NSString</span> *)identifier {
+    <span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:[<span class="built_in">NSURL</span> URLWithString:downloadStr]];
+    <span class="keyword">self</span><span class="variable">.backgroundSession</span> = [<span class="keyword">self</span> getBackgroundSession:identifier];
+    <span class="keyword">self</span><span class="variable">.backgroundSessionTask</span> = [<span class="keyword">self</span><span class="variable">.backgroundSession</span> downloadTaskWithRequest:request];
+    [<span class="keyword">self</span><span class="variable">.backgroundSessionTask</span> resume];
+}
+
+- (NSURLSession *)getBackgroundSession:(<span class="built_in">NSString</span> *)identifier {
+    NSURLSession *backgroundSession = <span class="literal">nil</span>;
+    NSURLSessionConfiguration *config = [NSURLSessionConfiguration backgroundSessionConfigurationWithIdentifier:[<span class="built_in">NSString</span> stringWithFormat:@<span class="string">"background-NSURLSession-%@"</span>,identifier]];
+    config<span class="variable">.HTTPMaximumConnectionsPerHost</span> = <span class="number">5</span>;
+    backgroundSession = [NSURLSession sessionWithConfiguration:config delegate:<span class="keyword">self</span> delegateQueue:<span class="literal">nil</span>];
+
+    <span class="keyword">return</span> backgroundSession;
+}
+</code></pre><p>4.暂停下载任务</p>
+<p>核心方法cancelByProducingResumeData</p>
+<pre><code>- (<span class="keyword">void</span>)pauseDownload {
+    __<span class="keyword">weak</span> typeof(<span class="keyword">self</span>) <span class="keyword">this</span> = <span class="keyword">self</span>;
+    <span class="keyword">if</span> (<span class="keyword">self</span><span class="variable">.normalSessionTask</span>) {
+        [<span class="keyword">self</span><span class="variable">.normalSessionTask</span> cancelByProducingResumeData:^(NSData *resumeData) {
+            <span class="keyword">this</span><span class="variable">.partialData</span> = resumeData;
+            <span class="keyword">this</span><span class="variable">.normalSessionTask</span> = <span class="literal">nil</span>;
+        }];
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span><span class="variable">.backgroundSessionTask</span>) {
+        [<span class="keyword">self</span><span class="variable">.backgroundSessionTask</span> cancelByProducingResumeData:^(NSData *resumeData) {
+            <span class="keyword">this</span><span class="variable">.partialData</span> = resumeData;
+        }];
+    }
+}
+</code></pre><p>4.重启下载任务</p>
+<p>核心方法downloadTaskWithResumeData</p>
+<pre><code>- (<span class="keyword">void</span>)resumeDownload {
+    <span class="keyword">if</span> (!<span class="keyword">self</span><span class="variable">.resumeSessionTask</span>) {
+        <span class="keyword">if</span> (<span class="keyword">self</span><span class="variable">.partialData</span>) {
+            <span class="keyword">self</span><span class="variable">.resumeSessionTask</span> = [<span class="keyword">self</span><span class="variable">.normalSession</span> downloadTaskWithResumeData:<span class="keyword">self</span><span class="variable">.partialData</span>];
+
+            [<span class="keyword">self</span><span class="variable">.resumeSessionTask</span> resume];
+        }
+    }
+}    
+</code></pre><p>5.取消下载任务</p>
+<p>核心方法cancel</p>
+<pre><code>- (<span class="keyword">void</span>)cancleDownload {
+    <span class="keyword">if</span> (<span class="keyword">self</span><span class="variable">.normalSessionTask</span>) {
+        [<span class="keyword">self</span><span class="variable">.normalSessionTask</span> cancel];
+        <span class="keyword">self</span><span class="variable">.normalSessionTask</span> = <span class="literal">nil</span>;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span><span class="variable">.resumeSessionTask</span>) {
+        <span class="keyword">self</span><span class="variable">.partialData</span> = <span class="literal">nil</span>;
+        [<span class="keyword">self</span><span class="variable">.resumeSessionTask</span> cancel];
+        <span class="keyword">self</span><span class="variable">.resumeSessionTask</span> = <span class="literal">nil</span>;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="keyword">self</span><span class="variable">.backgroundSessionTask</span>) {
+        [<span class="keyword">self</span><span class="variable">.backgroundSessionTask</span> cancel];
+        <span class="keyword">self</span><span class="variable">.backgroundSessionTask</span> = <span class="literal">nil</span>;
+    }    
+}            
+</code></pre><p>6.后台下载成功后回调    </p>
+<pre><code><span class="pp">- <span class="params">(void)</span>application:<span class="params">(<span class="variable">UIApplication</span> *)</span>application handleEventsForBackgroundURLSession:<span class="params">(<span class="variable">NSString</span> *)</span>identifier completionHandler:<span class="params">(void (^)</span><span class="params">()</span>)completionHandler
+{
+    self</span>.background<span class="variable">URLSessionCompletionHandler</span> = completion<span class="variable">Handler</span>;
+}
+</code></pre><p>7.后台下载成功后回调    </p>
+<pre><code><span class="pp">- <span class="params">(void)</span>application:<span class="params">(<span class="variable">UIApplication</span> *)</span>application handleEventsForBackgroundURLSession:<span class="params">(<span class="variable">NSString</span> *)</span>identifier completionHandler:<span class="params">(void (^)</span><span class="params">()</span>)completionHandler
+{
+    self</span>.background<span class="variable">URLSessionCompletionHandler</span> = completion<span class="variable">Handler</span>;
+}
+</code></pre><p>8.后台下载成功后回调NSURLSessionDownloadDelegate    </p>
+<p>下载中，处理下载进度</p>
+<pre><code><span class="pp">- <span class="params">(void)</span>URLSession:<span class="params">(<span class="variable">NSURLSession</span> *)</span>session downloadTask:<span class="params">(<span class="variable">NSURLSessionDownloadTask</span> *)</span>downloadTask didWriteData:<span class="params">(int64_t)</span>bytesWritten totalBytesWritten:<span class="params">(int64_t)</span>totalBytesWritten totalBytesExpectedToWrite:<span class="params">(int64_t)</span>totalBytesExpectedToWrite
+{
+    double currentProgress = totalBytesWritten / <span class="params">(double)</span>totalBytesExpectedToWrite;
+    NSLog<span class="params">(@<span class="string">"%@---%0.2f"</span>,self.identifier,current<span class="variable">Progress</span>)</span>;
+}</span>
+</code></pre><p>下载失败</p>
+<pre><code><span class="pp">- <span class="params">(void)</span>URLSession:<span class="params">(<span class="variable">NSURLSession</span> *)</span>session downloadTask:<span class="params">(<span class="variable">NSURLSessionDownloadTask</span> *)</span>downloadTask didResumeAtOffset:<span class="params">(int64_t)</span>fileOffset expectedTotalBytes:<span class="params">(int64_t)</span>expectedTotalBytes
+{
+    // 下载失败
+}</span>
+</code></pre><p>下载成功</p>
+<pre><code>- (<span class="keyword">void</span>)URLSession:(NSURLSession *)session downloadTask:(NSURLSessionDownloadTask *)downloadTask didFinishDownloadingToURL:(<span class="built_in">NSURL</span> *)location
+{
+    <span class="comment">// 下载成功后文件处理</span>
+    <span class="built_in">NSFileManager</span> *fileManager = [<span class="built_in">NSFileManager</span> defaultManager];
+
+    <span class="built_in">NSArray</span> *URLs = [fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask];
+    <span class="built_in">NSURL</span> *documentsDirectory = URLs[<span class="number">0</span>];
+
+    <span class="built_in">NSURL</span> *destinationPath = [documentsDirectory URLByAppendingPathComponent:<span class="keyword">self</span><span class="variable">.identifier</span>];
+    <span class="built_in">NSError</span> *error;
+
+    [fileManager removeItemAtURL:destinationPath error:<span class="literal">NULL</span>];
+    <span class="built_in">BOOL</span> success = [fileManager copyItemAtURL:location toURL:destinationPath error:&amp;error];
+
+    <span class="keyword">if</span> (success) {
+        <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^{
+            <span class="comment">// 此处可更新UI</span>
+        });
+    } <span class="keyword">else</span> {
+    }
+
+    <span class="comment">// 下载成功后，下载任务处理，包括后台任务和普通任务区别，以及重启任务        </span>
+    <span class="keyword">if</span>(downloadTask == <span class="keyword">self</span><span class="variable">.normalSessionTask</span>) {
+        <span class="keyword">self</span><span class="variable">.normalSessionTask</span> = <span class="literal">nil</span>;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (downloadTask == <span class="keyword">self</span><span class="variable">.resumeSessionTask</span>) {
+        <span class="keyword">self</span><span class="variable">.resumeSessionTask</span> = <span class="literal">nil</span>;
+        <span class="keyword">self</span><span class="variable">.partialData</span> = <span class="literal">nil</span>;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (session == <span class="keyword">self</span><span class="variable">.backgroundSession</span>) {
+        <span class="keyword">self</span><span class="variable">.backgroundSessionTask</span> = <span class="literal">nil</span>;
+
+        AppDelegate *appDelegate = (AppDelegate *)[[<span class="built_in">UIApplication</span> sharedApplication] delegate];
+        <span class="keyword">if</span>(appDelegate<span class="variable">.backgroundURLSessionCompletionHandler</span>) {
+            <span class="keyword">void</span> (^handler)() = appDelegate<span class="variable">.backgroundURLSessionCompletionHandler</span>;
+            appDelegate<span class="variable">.backgroundURLSessionCompletionHandler</span> = <span class="literal">nil</span>;
+            handler();
+
+            <span class="built_in">NSLog</span>(@<span class="string">"后台下载完成"</span>);
+        }            
+    }
+}
+</code></pre><p>9.后台下载完成，本地通知</p>
+<pre><code>- (<span class="keyword">void</span>)showLocalNotification:(<span class="built_in">BOOL</span>)downloadSuc {
+    <span class="built_in">UILocalNotification</span> *notification = [[<span class="built_in">UILocalNotification</span> alloc] init];
+    <span class="keyword">if</span> (notification!=<span class="literal">nil</span>) {
+
+        <span class="built_in">NSDate</span> *now=[<span class="built_in">NSDate</span> new];
+        notification<span class="variable">.fireDate</span>=[now dateByAddingTimeInterval:<span class="number">6</span>]; 
+        notification<span class="variable">.repeatInterval</span> = <span class="number">0</span>; 
+
+        notification<span class="variable">.timeZone</span> = [NSTimeZone defaultTimeZone];
+        notification<span class="variable">.soundName</span> = UILocalNotificationDefaultSoundName;
+        notification<span class="variable">.alertBody</span> = downloadSuc ? @<span class="string">"后台下载成功啦"</span> : @<span class="string">"下载失败"</span>;
+        notification<span class="variable">.alertAction</span> = @<span class="string">"打开"</span>;  
+        notification<span class="variable">.hasAction</span> = <span class="literal">YES</span>;
+        notification<span class="variable">.applicationIconBadgeNumber</span> =+ <span class="number">1</span>; 
+
+        <span class="built_in">NSDictionary</span>* infoDic = [<span class="built_in">NSDictionary</span> dictionaryWithObject:@<span class="string">"value"</span> forKey:@<span class="string">"key"</span>];
+        notification<span class="variable">.userInfo</span> = infoDic;
+        [[<span class="built_in">UIApplication</span> sharedApplication] scheduleLocalNotification:notification];
+    }
+}    
+</code></pre><h3 id="多任务下载">多任务下载</h3>
+<p>多任务下载，基于单独任务下载实现。只是提供了统一的方法进行管理。</p>
+<p>多任务下载采用单例管理</p>
+<p>1.调用多任务下载，需要手动传入下载请求    </p>
+<p>需要手动添加identifier，并通过identifier作为唯一标识，处理后续下载任务。</p>
+<pre><code><span class="built_in">NSString</span> *identifier = [[NSProcessInfo processInfo] globallyUniqueString];
+
+[[XZDownloadGroupManager shareInstance] addDownloadRequest:[musicUrlArr objectAtIndex:index] identifier:identifier targetSelf:<span class="keyword">self</span> showProgress:<span class="literal">YES</span> isDownloadBackground:<span class="literal">YES</span> downloadResponse:^(XZDownloadResponse *response) {
+    [<span class="keyword">this</span> handleResponse:response];
+}];
+</code></pre><p>2.下载任务处理</p>
+<p>这是下载模块处理最频繁的方法    </p>
+<pre><code>- (void)handleResponse:(XZDownloadResponse *)<span class="built_in">response</span> {
+    <span class="keyword">if</span> (<span class="built_in">response</span>.downloadStatus == XZDownloading) {
+        NSLog(@<span class="string">"下载任务ing%@"</span>,<span class="built_in">response</span>.identifier);
+        XZDownloadView *downloadView = [self getDownloadView:<span class="built_in">response</span>.identifier];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            downloadView.progressV = <span class="built_in">response</span>.progress;
+        });
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">response</span>.downloadStatus == XZDownloadSuccuss) {
+        NSLog(@<span class="string">"下载任务成功%@"</span>,<span class="built_in">response</span>.identifier);
+        XZDownloadView *downloadView = [self getDownloadView:<span class="built_in">response</span>.identifier];
+        downloadView.progressV = <span class="number">1.0</span>;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">response</span>.downloadStatus == XZDownloadBackgroudSuccuss) {
+        NSLog(@<span class="string">"后台下载任务成功%@"</span>,<span class="built_in">response</span>.identifier);
+        [self showLocalNotification:YES];
+        XZDownloadView *downloadView = [self getDownloadView:<span class="built_in">response</span>.identifier];
+        downloadView.progressV = <span class="number">1.0</span>;
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">response</span>.downloadStatus == XZDownloadFail) {
+        NSLog(@<span class="string">"下载任务失败%@"</span>,<span class="built_in">response</span>.identifier);
+        [self showLocalNotification:NO];
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">response</span>.downloadStatus == XZDownloadCancle) {
+        NSLog(@<span class="string">"下载任务取消%@"</span>,<span class="built_in">response</span>.identifier);
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">response</span>.downloadStatus == XZDownloadPause) {
+        NSLog(@<span class="string">"下载任务暂停%@"</span>,<span class="built_in">response</span>.identifier);
+    } <span class="keyword">else</span> <span class="keyword">if</span> (<span class="built_in">response</span>.downloadStatus == XZDownloadResume) {
+        NSLog(@<span class="string">"下载任务重启%@"</span>,<span class="built_in">response</span>.identifier);
+    }
+}
+</code></pre><p>3.多任务的暂停、重启、取消    </p>
+<p>暂停</p>
+<pre><code><span class="attr_selector">[[XZDownloadGroupManager shareInstance]</span> <span class="tag">pauseAllDownloadRequest</span>];
+</code></pre><p>重启</p>
+<pre><code><span class="attr_selector">[[XZDownloadGroupManager shareInstance]</span> <span class="tag">resumeAllDownloadRequest</span>];
+</code></pre><p>取消</p>
+<pre><code><span class="attr_selector">[[XZDownloadGroupManager shareInstance]</span> <span class="tag">cancleAllDownloadRequest</span>];
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/02/多任务下载(支持后台下载)/" data-id="5eb55u7oiamzj7wv" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XZDownloadTask/">XZDownloadTask</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-XZMusic构架设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/02/XZMusic构架设计/" class="article-date">
+  <time datetime="2015-05-01T16:00:00.000Z" itemprop="datePublished">May 2 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/XZMusic/">XZMusic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/XZMusic/master/XZMusic.gif" alt="XZMusic"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/XZMusic" target="_blank" rel="external">https://github.com/kingundertree/XZMusic</a></p>
+<h3 id="说明">说明</h3>
+<ol>
+<li>本md主要主要通过XZMusic分析下常见的iOS项目的搭建以及常见模块的设计和划分</li>
+<li>本项目的音乐信息取自本地SQL数据，通过FMDB获取</li>
+<li>音乐的统计信息采用CoreData实现</li>
+<li>歌曲资源和歌词取自网络</li>
+<li>播放器采用DOUAudio</li>
+<li>采用pod方式管理第三方库</li>
+</ol>
+<h3 id="功能">功能</h3>
+<ol>
+<li>本地搜索歌曲</li>
+<li>歌曲播放和下载、显示歌词</li>
+<li>歌曲的基本统计，包括点赞、播放次数等</li>
+<li>微博登录</li>
+</ol>
+<h3 id="主要模块">主要模块</h3>
+<ol>
+<li>网络请求模块XZNetWorking：集成AFNetworking，支持常见的get/post/restfulget/getfulget常见请求</li>
+<li>音乐下载模块MusicDownLoad：支持歌曲、歌词下载，包括本地存储处理，已经下载进度及常见信息回调</li>
+<li>微博登录libWeiboSDK：配合LoginManager使用</li>
+<li>UI主结构XZMenu：实现左右结构，滑动显示菜单</li>
+<li>UITabBar结构XZTabBar</li>
+</ol>
+<h3 id="构架设计">构架设计</h3>
+<pre><code>XZMusic
+    <span class="built_in">Data</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>本地化数据处理，包括本地音乐信息及音乐统计停息
+        XZMusicDataCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>coredata表信息输入输出接口
+        LKDBCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>SQL表信息输入输出接口
+        Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>本地数据库数据模型
+    Libs<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>不支持pod的库
+        DOUAudio<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>音乐播放，支持在线播放
+        XZNetWorking<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>网络请求库，集成AFNetworking库
+        libWeiboSDK<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>微博登录SDK
+    Manager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>APP业务操作管理类
+        GlobalManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app全局性参数管理，比如当前播放musicId、列表信息，以及下载的实时信息
+        MusicDownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>下载功能模块，支持音乐和歌词下载，本地存储处理，已经下载进度及常见信息回调
+        RequestManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>网络请求的请求
+        LoginManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>登录操作管理
+    Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app常见业务的model
+    Resource<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>常见资源，包括图片等
+    Views<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>视图资源，也就是app最重要的模块
+        component<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>通用的view类，包括base VC、table、Category、手势控件等
+        DownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>下载VC
+        Login<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>登录VC
+        Loving<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>最爱VC
+        Search<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>搜索VC
+        Setting<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>设置VC
+        ViewController<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>子页面VC
+        XZMenu<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>app主view结构
+        XZTabBar<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>UITabbar自定义结构
+    XZAppDelegate<span class="built_in">.</span>h
+    XZAppDelegate<span class="built_in">.</span>m
+
+Pods<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>支持第三方的类库
+
+    platform :ios, <span class="string">"6.0"</span>
+    pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.0'</span>
+    pod <span class="string">'pop'</span>, <span class="string">'~&gt; 1.0'</span>
+    pod <span class="string">'FMDB'</span>
+    pod <span class="string">'LKDBHelper'</span>, :head
+    pod <span class="string">'MBProgressHUD'</span>, <span class="string">'~&gt; 0.8'</span>
+    pod <span class="string">'MultiFunctionCell'</span>, :git <span class="subst">=&gt;</span> <span class="string">'https://github.com/kingundertree/MultiFunctionCell'</span>
+</code></pre><h3 id="补充">补充</h3>
+<ol>
+<li>后面的文章中单独对下载模块和网络请求模块的设计做详细阐述</li>
+<li>本项目的设计还有很多不足之处，主要体现在UI的左右结构设计和GCD使用还不够熟练</li>
+</ol>
+<h4 id="时间记录">时间记录</h4>
+<ol>
+<li>2014.8.22 周浦万达广场麦当劳，创建项目，实现pod管理和基本配置</li>
+<li>2014.8.28 公司，完成左右菜单结构，以及基本TabBar功能</li>
+<li>2014.8.29 公司，结构完善，引入手势控件</li>
+<li>2014.8.31 临港豪生，实现左侧菜单切换基本功能</li>
+<li>2014.9.22 实现微博登录和登录后信息</li>
+<li>2014.10.22 逐步实现asyncGetWithServiceID和的同步和异步方法，流程走通，待测试</li>
+<li>2014.10.29 调试url参数，service阶段</li>
+<li>2013.11.2 调试XZNetWork Get请求成功。api请求告一段落</li>
+<li>add LKDBHelper，实现歌手列表搜索，需要设计搜索模块</li>
+<li>add search singerList ViewController</li>
+<li>add search singerSongs Request</li>
+<li>11.13 add DOUAudioPlayer 实现播放歌曲功能</li>
+<li>11.22 实现本地音乐、歌词下载，以及本地播放功能</li>
+<li>11.23 实现歌词播放，进度同步</li>
+<li>12.2 add 播放暂停控制，以及其他ui</li>
+<li>12.6 add 子view 下载功能</li>
+<li>12.14 add 歌曲播放数据库读写记录操作</li>
+</ol>
+<h3 id="需要fix_方法">需要fix 方法</h3>
+<p>LKDBHelper.m</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">{</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithDBName:@<span class="string">"FreeMusic"</span>];</div><div class="line">}</div><div class="line"></div><div class="line">+(<span class="built_in">NSString</span>*)getDBPathWithDBName:(<span class="built_in">NSString</span>*)dbName</div><div class="line">{</div><div class="line">    <span class="built_in">NSString</span>* fileName = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span>([dbName hasSuffix:@<span class="string">".db"</span>] == <span class="literal">NO</span>) {</div><div class="line">        fileName = [<span class="built_in">NSString</span> stringWithFormat:@<span class="string">"%@.db"</span>,dbName];</div><div class="line">    }</div><div class="line">    <span class="keyword">else</span> {</div><div class="line">        fileName = dbName;</div><div class="line">    }</div><div class="line">    </div><div class="line"><span class="comment">//    NSString* filePath = [LKDBUtils getPathForDocuments:fileName inDir:@"db"];</span></div><div class="line">    <span class="built_in">NSString</span>* filePath = [LKDBUtils getPathForDocuments:fileName inDir:<span class="literal">nil</span>];</div><div class="line">    <span class="keyword">return</span> filePath;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/02/XZMusic构架设计/" data-id="83v282aqxs5j8h59" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XZMusic/">XZMusic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-XXMenuDemo，三栏式滑动菜单结构" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/" class="article-date">
@@ -580,7 +1008,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZDownloadTask/">XZDownloadTask</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZMusic/">XZMusic</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -589,7 +1017,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZDownloadTask/">XZDownloadTask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZMusic/">XZMusic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -598,7 +1026,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
+      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/XZDownloadTask/" style="font-size: 10.00px;">XZDownloadTask</a><a href="/tags/XZMusic/" style="font-size: 10.00px;">XZMusic</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
     </div>
   </div>
 
@@ -607,7 +1035,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -619,6 +1047,14 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
       <ul>
         
           <li>
+            <a href="/2015/05/02/多任务下载(支持后台下载)/">多任务下载(支持后台下载)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
           </li>
         
@@ -628,14 +1064,6 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
         
           <li>
             <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/24/手势滑动返回/">手势滑动返回，多种实现方案</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/16/UITableView重用机制/">UITableView 重用机制</a>
           </li>
         
       </ul>

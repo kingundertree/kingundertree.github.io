@@ -73,6 +73,128 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-webapp之手机屏幕分辨率" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/27/webapp之手机屏幕分辨率/" class="article-date">
+  <time datetime="2013-06-27T00:00:00.000Z" itemprop="datePublished">Jun 27 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/webapp/">webapp</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/06/27/webapp之手机屏幕分辨率/">webapp之手机屏幕分辨率</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>做手机应用，最痛苦的就是适配，适配就涉及到分辨率之类的问题。</p>
+<p>今天就我已经了解到的只是和领域和大家分享下。</p>
+<p>我们通常所说的分辨率，就是手机的宽和高分别能够显示的像素数。</p>
+<p>分辨率：分辨率（resolution）就是屏幕的精密度，是指显示器所能显示的像素的多少。<br>比如：iphone5 分辨率640<em>1136,也就是宽可以显示640个像素点，高显示1136个像素点。总的像素点是640</em>1136 = 727040个 。js获取屏幕分辨率方法，window.screen.width 、window.screen.height<br>宽度：x方向显示的像素数，width，以window.screen.width获取；<br>高度：y方向显示的像素数，height，以window.screen.height获取；</p>
+<p>设备独立像素(device-independent pixels (dips))：即移动设备的显示像素，如iphone的设备宽度和高度为320<em>568而非640</em>1136；</p>
+<p>由此衍生出设备宽度（Device-width）和设备高度（Device-height）。<br>比如iphone 5，设备高度568px、设备宽度320px。ios通常的设备宽度是320px，而android设备宽度主流为320px，也存在360px、400px等。这也为android适配带来了巨大的麻烦。</p>
+<p>在iphone 4s之后，出现一个retina概念。这个概念，实际是iphone自己提出来的，他并不是一个标准。</p>
+<p>那什么是retina？就要涉及到上面说的设备宽度了。</p>
+<p>device-pixel-ratio：width/device-width，即上面说的的缩放比例值。device-pixel-ratio大于等于2时，就是苹果所称的retina了。也就是一个显示像素宽度，可以装下2个像素以上。也就是所说的一个像素点可以放4个像素点的内容。</p>
+<p>现在很多手机早已经实现retina了，比如魅族2，4.4寸（720px<em>1280px），小米2，4.3寸（720px</em>1280px）。都已经是retina屏幕。</p>
+<p>目前，可以通过window.devicePixelRatio查询device-pixel-ratio。</p>
+<p>此外，在讲一个我不太熟悉的概念。</p>
+<p>PPI/DPI：PPI有时也叫DPI，表示的是每英寸所拥有的像素（pixel）数目，数值越高，即代表显示屏可以显示高密度像素。计算方式（以iphone4 为例）</p>
+<p><img src="https://raw.githubusercontent.com/kingundertree/resource/master/1.jpg" alt="Mou icon"></p>
+<p>由上图可知，PPI在120-160之间的手机被归为低密度手机，160-240被归为中密度，240-320被归为高密度，320以上被归为超高密度。</p>
+<p>现在的主流手机，都已经在高密度和超高密度上上。</p>
+<p>今天同事们在折腾android的ui切图，我还不太了解，拿这些已经积累的只是，和大家分享下。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/06/27/webapp之手机屏幕分辨率/" data-id="lrfz0dsb719m0y2x" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webapp/">webapp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-webapp技巧系列(1)-页面弹性滚动" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/26/webapp技巧系列(1)-页面弹性滚动/" class="article-date">
+  <time datetime="2013-06-26T00:00:00.000Z" itemprop="datePublished">Jun 26 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/webapp/">webapp</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/06/26/webapp技巧系列(1)-页面弹性滚动/">webapp技巧系列(1)-页面弹性滚动</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>讲了这么久的webapp，开始给大家讲讲我们webapp中掉过的坑，并把一切基本技巧通过微信和大家分享。</p>
+<p>在使用app时，往往在页面滚动到头部或者底部时，会出现弹性反弹效果。在原生应用中，这个是基本的ui体验细节。但是在webapp中，却需要仔细设置了。</p>
+<p>使用safari的时候，在页面过长时，拉到底部或者头部往往都有弹性的，这是safari浏览器特有的。</p>
+<p>在webapp上，为了实现页面的弹性碰撞，我们可以借鉴safari的这一特性。（这里特指ios系统下webapp，android的还没有找到页面弹性的方法，欢迎大家赐教）。</p>
+<p>页面弹性，主要应用到-webkit-overflow-scrolling这一特性<br>条件：</p>
+<p>1：父元素设置-webkit-overflow-scrolling: touch;overflow: scroll;属性；<br>2：子元素高度要大于父元素或者设置min-height大于父元素<br>demo：</p>
+<pre><code>html部分
+<span class="subst">&lt;</span>div class<span class="subst">=</span><span class="string">"father"</span><span class="subst">&gt;</span>
+   <span class="subst">&lt;</span>div class<span class="subst">=</span><span class="string">"child"</span><span class="subst">&gt;</span>
+   <span class="subst">&lt;</span>/div<span class="subst">&gt;</span>
+<span class="subst">&lt;</span>/div<span class="subst">&gt;</span>
+css部分
+<span class="built_in">.</span>father{
+    height: <span class="number">548</span>px;
+    overflow: scroll;
+    <span class="attribute">-webkit</span><span class="attribute">-overflow</span><span class="attribute">-scrolling</span>: touch;
+}
+<span class="built_in">.</span>child{
+   <span class="keyword">min</span><span class="attribute">-height</span>:<span class="number">549</span>px;<span class="comment">//或者height:1000px;</span>
+}
+</code></pre><p>如果不设置father的属性，即使child值大于父元素，也无弹性效果，切记。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/06/26/webapp技巧系列(1)-页面弹性滚动/" data-id="2dpc97fvcaglrta8" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webapp/">webapp</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-webapp-webapp坑爹吗(3)" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2013/06/26/webapp-webapp坑爹吗(3)/" class="article-date">
@@ -389,7 +511,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZDownloadTask/">XZDownloadTask</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZMusic/">XZMusic</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -398,7 +520,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZDownloadTask/">XZDownloadTask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZMusic/">XZMusic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -407,7 +529,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
+      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/XZDownloadTask/" style="font-size: 10.00px;">XZDownloadTask</a><a href="/tags/XZMusic/" style="font-size: 10.00px;">XZMusic</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
     </div>
   </div>
 
@@ -416,7 +538,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -428,6 +550,14 @@
       <ul>
         
           <li>
+            <a href="/2015/05/02/多任务下载(支持后台下载)/">多任务下载(支持后台下载)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
           </li>
         
@@ -437,14 +567,6 @@
         
           <li>
             <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/24/手势滑动返回/">手势滑动返回，多种实现方案</a>
-          </li>
-        
-          <li>
-            <a href="/2015/03/16/UITableView重用机制/">UITableView 重用机制</a>
           </li>
         
       </ul>

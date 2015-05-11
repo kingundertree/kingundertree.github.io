@@ -3,17 +3,38 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: jekyll | 夏至</title>
+  <title>夏至</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="不懂产品的前端，不是优秀的Ios工程师">
-<meta property="og:type" content="website">
+  <meta name="description" content="github地址
+https://github.com/kingundertree/XZNetworking
+Pod支持
+pod 'XZNetworking', :git =&gt; 'https://github.com/kingundertree/XZNetworking'
+Demo
+https://github.com/kingundertree/XZNetworkingDemo
+功能
+1.">
+<meta property="og:type" content="article">
 <meta property="og:title" content="夏至">
-<meta property="og:url" content="http://yoursite.com/tags/jekyll/">
+<meta property="og:url" content="http://yoursite.com/2015/05/11/README/">
 <meta property="og:site_name" content="夏至">
-<meta property="og:description" content="不懂产品的前端，不是优秀的Ios工程师">
+<meta property="og:description" content="github地址
+https://github.com/kingundertree/XZNetworking
+Pod支持
+pod 'XZNetworking', :git =&gt; 'https://github.com/kingundertree/XZNetworking'
+Demo
+https://github.com/kingundertree/XZNetworkingDemo
+功能
+1.">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="夏至">
-<meta name="twitter:description" content="不懂产品的前端，不是优秀的Ios工程师">
+<meta name="twitter:description" content="github地址
+https://github.com/kingundertree/XZNetworking
+Pod支持
+pod 'XZNetworking', :git =&gt; 'https://github.com/kingundertree/XZNetworking'
+Demo
+https://github.com/kingundertree/XZNetworkingDemo
+功能
+1.">
 
   
     <link rel="alternative" href="/atom.xml" title="夏至" type="application/atom+xml">
@@ -71,79 +92,110 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-jekyll-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-README" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2014/07/14/jekyll-github-pages/" class="article-date">
-  <time datetime="2014-07-13T16:00:00.000Z" itemprop="datePublished">Jul 14 2014</time>
+    <a href="/2015/05/11/README/" class="article-date">
+  <time datetime="2015-05-11T10:27:40.000Z" itemprop="datePublished">May 11 2015</time>
 </a>
     
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/hexo/">hexo</a>
-  </div>
-
   </div>
   <div class="article-inner">
     
     
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/14/jekyll-github-pages/">利用jekyll github搭建自己的博客</a>
-    </h1>
-  
-
-      </header>
-    
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="第一步：github构建项目">第一步：github构建项目</h3>
-<pre><code>1。比如我的github地址：https://github.com/kingundertree/，需要新建repository
-2.新建repository地址必须和github的username保持一致，生成地址：https://github.com/kingundertree/kingundertree.github.io
-3.设置github pages，在repository的setting中GitHub Pages部分，点击generator按钮即可
-4.git clone 至本地
+        <h3 id="github地址">github地址</h3>
+<pre><code><span class="label">https:</span>//github<span class="preprocessor">.com</span>/kingundertree/XZNetworking
+</code></pre><h3 id="Pod支持">Pod支持</h3>
+<pre><code>pod <span class="string">'XZNetworking'</span>, <span class="symbol">:git</span> =&gt; <span class="string">'https://github.com/kingundertree/XZNetworking'</span>
+</code></pre><h3 id="Demo">Demo</h3>
+<pre><code><span class="label">https:</span>//github<span class="preprocessor">.com</span>/kingundertree/XZNetworkingDemo
+</code></pre><h3 id="功能">功能</h3>
+<pre><code><span class="bullet">1. </span>支持get请求，包括同步/异步
+<span class="bullet">2. </span>支持post请求，包括同步/异步
+<span class="bullet">3. </span>支持restfulGet请求，包括同步/异步
+<span class="bullet">4. </span>支持restfulPost请求，包括同步/异步
+<span class="bullet">5. </span>支持请求细节日志打印，包括request、header、body、response等细节信息
+<span class="bullet">6. </span>支持系统参数传递
+</code></pre><h3 id="实现机制">实现机制</h3>
+<pre><code><span class="bullet">1. </span>基于AFNetworking
+<span class="bullet">2. </span>通过NSOperationQueen管理所有的请求
+</code></pre><h3 id="补充">补充</h3>
+<pre><code>1.支持AFNetworking切换其他第三方网络库，需要单独处理请求成功回调逻辑
+2.可以支持加密等处理
+</code></pre><h3 id="代码片段">代码片段</h3>
+<h4 id="get请求">get请求</h4>
+<pre><code>#pragma mark - get Request
+- (void)getRequestMethodTest <span class="comment">{
+    NSDictionary *params = @{@"songIds":@"15702101"}</span>;
+    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">data</span>/<span class="title">music</span>/<span class="title">links</span>";</span>
 
-提示：也可直接按照官方教程操作即可[<span class="link_label">点击</span>](<span class="link_url">https://pages.github.com/</span>)
-</code></pre><h3 id="第二步：安装jekyll">第二步：安装jekyll</h3>
-<pre><code><span class="number">1</span>.mac示例，前提是安装ruby
-<span class="number">2</span>.执行，jekyll <span class="keyword">install</span>
-</code></pre><h3 id="第三步：安装jekyll-bootstrap">第三步：安装jekyll-bootstrap</h3>
-<pre><code>1.获取jekyll-bootstrap代码，[<span class="link_label">github 源代码</span>](<span class="link_url">https://github.com/plusjade/jekyll-bootstrap/</span>)
-2.将代码复制到第一步的clone 项目中
-3.修改代码，push等等
-</code></pre><h3 id="第四部：启动jekyll服务">第四部：启动jekyll服务</h3>
-<pre><code><span class="number">1.</span>进入clone 项目
-<span class="number">2.</span>执行jekyll <span class="keyword">server</span> 即可。我犯了一个错误，执行了jekyll --<span class="keyword">server</span>，久久不能生效
-</code></pre><h3 id="第五步：CNAME">第五步：CNAME</h3>
-<pre><code><span class="number">1.</span>项目中添加：CNAME文件，添加你要指向URL:www<span class="preprocessor">.xiazer</span><span class="preprocessor">.com</span>(这是我的，你可以指向自己的)
-</code></pre><h3 id="第六步：域名解析">第六步：域名解析</h3>
-<pre><code><span class="number">1.</span>创建解析记录类型A，记录值<span class="number">180.168</span><span class="number">.41</span><span class="number">.175</span>(github 官方ip)
-<span class="number">2.</span>然后，如果没有异常，十几分钟即可通过www<span class="preprocessor">.xiazer</span><span class="preprocessor">.com</span>
-</code></pre><h4 id="解释下整个解析流程：">解释下整个解析流程：</h4>
-<pre><code><span class="number">1.</span>github<span class="preprocessor">.com</span>/username 和 repository的https://github<span class="preprocessor">.com</span>/username/username<span class="preprocessor">.github</span><span class="preprocessor">.io</span> 的username相同，且创建username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>的repository时，该项目的github pages默认地址会指向username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>。(github 系统的逻辑，我在这里被坑了好久)
-<span class="number">2.</span>创建CNAME，可以把username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>地址指向CNAME中url
-<span class="number">3.</span>然后再把你的域名地址解析指向github，github会通过CNAME的url进行匹配，如果CNAME的url同指向github的url一致，则将username<span class="preprocessor">.github</span><span class="preprocessor">.io</span>跳转至你的域名
-</code></pre><p>=========================<br>ok，解释完毕。搞了一个周末的东西，祝你顺利。</p>
-<p>我接着去玩下jekyll语言了，设计下自己的样式。    </p>
+    [[XZRequestManager shareInstance] asyncGetWithServiceID:XZNetworkingGetServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(getRequestReturn:)];
+}
 
+- (void)getRequestReturn:(XZRequestResponse *)response <span class="comment">{
+    NSLog(@"response----&gt;&gt;%@",response.content);
+}</span>
+</code></pre><h4 id="post请求">post请求</h4>
+<pre><code>#pragma mark - post Request
+- (void)postRequestMethodTest <span class="comment">{
+    NSDictionary *params = @{@"log" : @"testtest"}</span>;
+    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">admin</span>.<span class="title">writeCrashLog</span>";</span>
+
+    [[XZRequestManager shareInstance] asyncPostWithServiceID:XZNetworkingPostServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(postRequestReturn:)];
+}
+
+- (void)postRequestReturn:(XZRequestResponse *)response <span class="comment">{
+    NSLog(@"response----&gt;&gt;%@",response.content);
+}</span>
+</code></pre><h4 id="restfulGet请求">restfulGet请求</h4>
+<pre><code>#pragma mark - restfulGet Request
+- (void)restfulGetMethodTest <span class="comment">{
+    NSDictionary *params = @{@"cityId":@"41"}</span>;
+    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">anjuke</span>/<span class="title">prop</span>/<span class="title">getconfig</span>/";</span>
+
+    [[XZRequestManager shareInstance] asyncRESTGetWithServiceID:XZNetworkingRestfulGetServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(restfulGetRequestReturn:)];
+}
+
+- (void)restfulGetRequestReturn:(XZRequestResponse *)response <span class="comment">{
+    NSLog(@"response----&gt;&gt;%@",response.content);
+}</span>
+</code></pre><h4 id="restfulPost">restfulPost</h4>
+<pre><code>#pragma mark - restfulPost Request
+- (void)restfulPostRequestMethodTest <span class="comment">{
+    NSDictionary *params = @{@"brokerId":@"1512265",@"chatFlag":@"1",@"cityId":@"41",@"token":@"ac69cf3c7cd1c116f41e5686928bfef6"}</span>;
+    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">broker</span>/<span class="title">getinfoandppc</span>/";</span>
+
+    [[XZRequestManager shareInstance] asyncRESTPostWithServiceID:XZNetworkingRestfulPostServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(restfulPostRequestReturn:)];
+}
+
+- (void)restfulPostRequestReturn:(XZRequestResponse *)response <span class="comment">{
+    NSLog(@"response----&gt;&gt;%@",response.content);
+}</span>
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/07/14/jekyll-github-pages/" data-id="hfj3rui2iqfzosch" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2015/05/11/README/" data-id="q21qsve9ak5xl0qx" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jekyll/">jekyll</a></li></ul>
-
     </footer>
   </div>
   
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2015/05/11/XZNetworking请求库/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">XZNetworking 支持get/post/restfulGet/restfulPost请求</div>
+    </a>
+  
+</nav>
+
+  
 </article>
 
-
-  
-  
 </section>
         
           <aside id="sidebar">

@@ -73,6 +73,127 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-swift初感" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/27/swift初感/" class="article-date">
+  <time datetime="2014-07-26T16:00:00.000Z" itemprop="datePublished">Jul 27 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/swift/">swift</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/27/swift初感/">swift初感</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>swift中文版，基本看完了。整体感觉：1，语法的改动只是方便了书写，核心优势还是在于函数方法的扩增；2，iOS开发也开始变得更加复杂，可选择性也更多；3，持续性学习的要求更加多，iOS开发就可以派生出n多的分支，业务类、运动健康、支付类等等；4，我感觉，我还不是一个真正意义的程序员！</p>
+<p>去年刚开始从oc转前端的时候，还是非ARC，因为看到很多人推荐学习，说是需要通过学习非ARC了解oc的运行机制。但是当时ARC已经推出来快2年了，我比较怀疑以上观点。后来顺利切换到ARC，极少情况下需要处理内存泄露和加持的问题。</p>
+<p>现在iOS的语言也越来越牛逼，他帮我们考虑了更多底层处理问题，极力让程序员关注开发，关注设计和实现。非ARC的问题，估计还是有很多人纠结，就像很多人问，我学习计算机是不是一定要学习c语言。我坚持认为，这些接近底层的东西，如果不是要深入钻研，了解就够了。</p>
+<p>毕竟，大部分工作还是在业务实现层次的。把握住技术发展，及时更上才是王道。比如swift，好多人还是觉得无所谓，有oc就好，切换到swift还需要几年。我倒觉得，一切都会很快的。因为swift才是iOS真正的高级开发语言，未来更多牛逼的应用是基于swift而不是OC。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/07/27/swift初感/" data-id="io62a2c8hfk7tdbq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift-oc/">swift oc</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hexo github 创建博客" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/15/hexo github 创建博客/" class="article-date">
+  <time datetime="2014-07-14T16:00:00.000Z" itemprop="datePublished">Jul 15 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/hexo/">hexo</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/15/hexo github 创建博客/">hexo github 创建个人博客</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>前几天用jekyll，各种不爽。</p>
+<p>前同事推荐下，果断换<a href="hexo.io">hexo</a></p>
+<p>部分github page 的设置流程，在此略过，见上一篇博客。</p>
+<h3 id="安装hexo环境">安装hexo环境</h3>
+<pre><code>见[node<span class="preprocessor">.js</span>官网]：http://nodejs<span class="preprocessor">.org</span>/
+</code></pre><h3 id="安装Git">安装Git</h3>
+<pre><code>见[git官网]：http:<span class="comment">//git-scm.com/    </span>
+</code></pre><h3 id="正式安装hexo">正式安装hexo</h3>
+<p>mac用户，直接执行</p>
+<pre><code><span class="built_in">sudo</span> npm install hexo -g
+</code></pre><h3 id="创建web项目">创建web项目</h3>
+<pre><code>hexo init <span class="built_in">file</span>
+
+<span class="built_in">file</span>至你要创建的项目地址
+</code></pre><h3 id="启动服务">启动服务</h3>
+<p>进入项目地址，执行</p>
+<pre><code>hexo <span class="keyword">server</span>
+</code></pre><p>执行完毕后，访问：localhost:4000/ 即可</p>
+<h3 id="安装npm">安装npm</h3>
+<pre><code><span class="built_in">sudo</span> npm install
+</code></pre><h3 id="安装模版nut">安装模版nut</h3>
+<p>模板地址<a href="https://github.com/seff/nut" target="_blank" rel="external">github</a></p>
+<pre><code><span class="number">1</span>：下载模板至theme文件夹
+<span class="number">2</span>：yml配置theme: nut
+<span class="number">3</span>：执行<span class="built_in">sudo</span> npm install lodash --save
+<span class="number">4</span>：执行<span class="built_in">sudo</span> npm install marked --save
+</code></pre><h3 id="生成静态文件">生成静态文件</h3>
+<pre><code><span class="number">1</span>：hexo <span class="keyword">generate</span>
+<span class="number">2</span>：hexo deploy
+</code></pre><hr>
+<p>ok 然后把这个写文件上传至kingundertree.github.io命名的repositories，设置github page 细节自己处理。</p>
+<p>然后，访问<a href="http://kingundertree.github.io/" target="_blank" rel="external">http://kingundertree.github.io/</a></p>
+<p>Ok！</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/07/15/hexo github 创建博客/" data-id="q8taw265n85hh0lf" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/hexo/">hexo</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-jekyll-github-pages" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/07/14/jekyll-github-pages/" class="article-date">
@@ -183,7 +304,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/16/产品流程分享/" data-id="t9ahpqfwq96m2s1a" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/07/16/产品流程分享/" data-id="lhtuzd4qotaf3ka6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/产品/">产品</a></li></ul>
@@ -231,7 +352,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/11/思维的局限性/" data-id="3m3700rx6l909zpj" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/07/11/思维的局限性/" data-id="w5vq2u2mr945l07f" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -278,7 +399,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/09/懒惰的境界/" data-id="8rnyg6u80uuug2vf" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/07/09/懒惰的境界/" data-id="vbpdqefbjvjzrtnw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -331,7 +452,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/07/三观/" data-id="k01n0frmxnit5ba4" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/07/07/三观/" data-id="syw45dlc93hsw18q" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -385,7 +506,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/05/只是为了快乐/" data-id="qqh5x2wxo3h71bt0" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/07/05/只是为了快乐/" data-id="urg06t1utmm4apjk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -448,7 +569,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/07/02/webapp技巧系列-键盘搜索功能实/" data-id="4f1fq1h49ndftwnw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/07/02/webapp技巧系列-键盘搜索功能实/" data-id="o9visju292km1is4" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
@@ -502,124 +623,10 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/" data-id="uuqi8lsvwxl9f5qp" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2013/06/30/webapp技巧系列2-键盘显示和隐藏控制(2)/" data-id="ylzcxz71vqjhsqox" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-webapp技巧系列(2)-文本框功能和键盘界面控制(1)" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/" class="article-date">
-  <time datetime="2013-06-30T00:00:00.000Z" itemprop="datePublished">Jun 30 2013</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/随笔/">随笔</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/">webapp技巧系列(2)-文本框功能和键盘界面控制(1)</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>在webapp，默认键盘功能比较有限，基本是qwerty风格，相对于ios上丰富可定制的键盘，弱暴了。</p>
-<p>但是，在有限的情况下，safari还是给了一些支持的。那我们来看看，在已经有情况下，我们可以做那些事情。</p>
-<p>1：默认</p>
-<pre><code>&lt;input <span class="keyword">type</span>=<span class="string">"text"</span>&gt;
-默认首字母大写，可以通过autocapitalize=<span class="string">"off"</span>来关闭首字母大写。
-&lt;input <span class="keyword">type</span>=<span class="string">"text"</span> autocapitalize=<span class="string">"off"</span>&gt;
-</code></pre><p>2：html5 input</p>
-<pre><code>比如<span class="keyword">type</span>=“number/tel”
-&lt;input <span class="keyword">type</span>=<span class="string">"number"</span>&gt;
-</code></pre><p>3：键盘实现九宫格输入数字</p>
-<pre><code>只需要在数字类型键盘上增加pattern=<span class="string">"[0-9]*"</span>正则
-&lt;input <span class="keyword">type</span>=<span class="string">"number"</span> pattern=<span class="string">"[0-9]*"</span>&gt;
-</code></pre><p>这样是不是输入数字方便了很多。</p>
-<p>明天将继续，怎么实现键盘上搜索功能和键盘的消失和隐藏功能</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/" data-id="now0hex6xgshchki" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-webapp之结构布局实现方案" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2013/06/29/webapp之结构布局实现方案/" class="article-date">
-  <time datetime="2013-06-29T00:00:00.000Z" itemprop="datePublished">Jun 29 2013</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/webapp/">webapp</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2013/06/29/webapp之结构布局实现方案/">webapp之结构布局实现方案</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>昨天已经预告了今天的主题：webapp结构布局实现方案</p>
-<p>大家在使用app中，经常会进行各种操作，实现不同的功能间切换，可以看到不同的内容。各种内容之间切换，会通过各种动画，比如从左到右、从右到左、从上到下、从下到上、透明到不透明、缩小放大等效果。</p>
-<p>如果大家多了解些，也许和我一样也知道native app的视图view概念。原生app通过控制视图实现内容的展现和切换，以及app的内存管理。</p>
-<p>在手机上webapp，怎么能够模拟原生webapp的实现效果呢？</p>
-<p>如果在进行某个操作的时候，采用最简单的加载网页，可以吗？</p>
-<p>很明显，这样做，会导致页面刷新，出现闪屏，而且无法控制页面的原始位置，继而无法实现动画效果。</p>
-<p>那么，你可以在app store搜索“上海房税”。看看这个webapp是否接近原生app的效果。欢迎体验。</p>
-<p>现在进入主要环节，webapp之结构布局实现方案：</p>
-<p>大家仔细看这个大图：</p>
-<p><img src="https://raw.githubusercontent.com/kingundertree/resource/master/0.jpg" alt="Mou icon"></p>
-<p>大家看出端倪了吧？</p>
-<p>在webapp和native app中，都是有默认视图，我们这里认为是“1”。当app启动时候，用户就能够看到“1”。如果用户进行操作，就可以把“2”、“3”、“4”、“5”的内容通过动画从各自的位置移动到2所在位置，这样就可以避免页面闪动等问题。</p>
-<p>当然，具体实现的时候，还有某些细节。</p>
-<p>我主要列举下一下原则，供大家参考。<br>1：所有的模块通过如图的样式和位置布局；<br>2：所有的模块是平级的，都包括在一个父容器中，父容器相对或者绝对定位，模块都按照绝对定位，当然也可以相对定位，但必须都保持一致；<br>3：父容器位置是从“1”的左上角开始，也就是“2”模块位置，是left：320px，top：0；“3”模块位置，left:-320px,top:0;“4”模块位置，left：0，top：460px；“5”模块位置，top:-320px,left:0;(已iphone 4s为例，其他的原理一致)<br>4：此外，需要对各个模块，标注z-index值，显示不同的层级。避免模块在“1”区域出现的层级，避免被遮盖。</p>
-<p>此外，还有一些罩层，都是在“1”区域，但是默认hidden的，需要的时候显示即可。</p>
-<p>大家有什么细节问题，回复即可。我基本在线的</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2013/06/29/webapp之结构布局实现方案/" data-id="azoo6roogmgwu1ev" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webapp/">webapp</a></li></ul>
 
     </footer>
   </div>
@@ -641,7 +648,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Categories</h3>
     <div class="widget">
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZDownloadTask/">XZDownloadTask</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZMusic/">XZMusic</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
+      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UIPageViewController/">UIPageViewController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/UISearchDisplayController/">UISearchDisplayController</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XXMenuDemo/">XXMenuDemo</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZDownloadTask/">XZDownloadTask</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZMusic/">XZMusic</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/XZNetworking/">XZNetworking</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/hexo/">hexo</a><span class="category-list-count">3</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/swift/">swift</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/webapp/">webapp</a><span class="category-list-count">7</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/产品/">产品</a><span class="category-list-count">2</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/手势滑动返回/">手势滑动返回</a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/随笔/">随笔</a><span class="category-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -650,7 +657,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZDownloadTask/">XZDownloadTask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZMusic/">XZMusic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPageViewController/">UIPageViewController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UIPanGuesture/">UIPanGuesture</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/UITableView/">UITableView</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZDownloadTask/">XZDownloadTask</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZMusic/">XZMusic</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/XZNetworking/">XZNetworking</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/hexo/">hexo</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jekyll/">jekyll</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swift-oc/">swift oc</a><span class="tag-list-count">1</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/webapp/">webapp</a><span class="tag-list-count">7</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/产品/">产品</a><span class="tag-list-count">2</span></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/随笔/">随笔</a><span class="tag-list-count">7</span></li></ul>
     </div>
   </div>
 
@@ -659,7 +666,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/XZDownloadTask/" style="font-size: 10.00px;">XZDownloadTask</a><a href="/tags/XZMusic/" style="font-size: 10.00px;">XZMusic</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
+      <a href="/tags/MultiFunctionCell/" style="font-size: 10.00px;">MultiFunctionCell</a><a href="/tags/UIPageViewController/" style="font-size: 10.00px;">UIPageViewController</a><a href="/tags/UIPanGuesture/" style="font-size: 10.00px;">UIPanGuesture</a><a href="/tags/UISearchDisplayController/" style="font-size: 10.00px;">UISearchDisplayController</a><a href="/tags/UITableView/" style="font-size: 10.00px;">UITableView</a><a href="/tags/XXMenuDemo/" style="font-size: 10.00px;">XXMenuDemo</a><a href="/tags/XZDownloadTask/" style="font-size: 10.00px;">XZDownloadTask</a><a href="/tags/XZMusic/" style="font-size: 10.00px;">XZMusic</a><a href="/tags/XZNetworking/" style="font-size: 10.00px;">XZNetworking</a><a href="/tags/hexo/" style="font-size: 10.00px;">hexo</a><a href="/tags/jekyll/" style="font-size: 10.00px;">jekyll</a><a href="/tags/swift-oc/" style="font-size: 10.00px;">swift oc</a><a href="/tags/webapp/" style="font-size: 20.00px;">webapp</a><a href="/tags/产品/" style="font-size: 15.00px;">产品</a><a href="/tags/随笔/" style="font-size: 20.00px;">随笔</a>
     </div>
   </div>
 
@@ -668,7 +675,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -680,7 +687,11 @@
       <ul>
         
           <li>
-            <a href="/2015/05/02/多任务下载(支持后台下载)/">多任务下载(支持后台下载)</a>
+            <a href="/2015/05/11/README/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2015/05/11/XZNetworking请求库/">XZNetworking 支持get/post/restfulGet/restfulPost请求</a>
           </li>
         
           <li>
@@ -688,15 +699,11 @@
           </li>
         
           <li>
-            <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/">XXMenuDemo，三栏式滑动菜单结构</a>
+            <a href="/2015/05/02/多任务下载(支持后台下载)/">多任务下载(支持后台下载)</a>
           </li>
         
           <li>
             <a href="/2015/04/29/微信搜索效果/">UISearchDisplayController，实现微信搜索效果</a>
-          </li>
-        
-          <li>
-            <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
           </li>
         
       </ul>

@@ -73,52 +73,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-swift初感" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2014/07/27/swift初感/" class="article-date">
-  <time datetime="2014-07-26T16:00:00.000Z" itemprop="datePublished">Jul 27 2014</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/swift/">swift</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2014/07/27/swift初感/">swift初感</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>swift中文版，基本看完了。整体感觉：1，语法的改动只是方便了书写，核心优势还是在于函数方法的扩增；2，iOS开发也开始变得更加复杂，可选择性也更多；3，持续性学习的要求更加多，iOS开发就可以派生出n多的分支，业务类、运动健康、支付类等等；4，我感觉，我还不是一个真正意义的程序员！</p>
-<p>去年刚开始从oc转前端的时候，还是非ARC，因为看到很多人推荐学习，说是需要通过学习非ARC了解oc的运行机制。但是当时ARC已经推出来快2年了，我比较怀疑以上观点。后来顺利切换到ARC，极少情况下需要处理内存泄露和加持的问题。</p>
-<p>现在iOS的语言也越来越牛逼，他帮我们考虑了更多底层处理问题，极力让程序员关注开发，关注设计和实现。非ARC的问题，估计还是有很多人纠结，就像很多人问，我学习计算机是不是一定要学习c语言。我坚持认为，这些接近底层的东西，如果不是要深入钻研，了解就够了。</p>
-<p>毕竟，大部分工作还是在业务实现层次的。把握住技术发展，及时更上才是王道。比如swift，好多人还是觉得无所谓，有oc就好，切换到swift还需要几年。我倒觉得，一切都会很快的。因为swift才是iOS真正的高级开发语言，未来更多牛逼的应用是基于swift而不是OC。</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2014/07/27/swift初感/" data-id="io62a2c8hfk7tdbq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift-oc/">swift oc</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-hexo github 创建博客" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2014/07/15/hexo github 创建博客/" class="article-date">
@@ -635,6 +589,62 @@
 
 
   
+    <article id="post-webapp技巧系列(2)-文本框功能和键盘界面控制(1)" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/" class="article-date">
+  <time datetime="2013-06-30T00:00:00.000Z" itemprop="datePublished">Jun 30 2013</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/随笔/">随笔</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/">webapp技巧系列(2)-文本框功能和键盘界面控制(1)</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>在webapp，默认键盘功能比较有限，基本是qwerty风格，相对于ios上丰富可定制的键盘，弱暴了。</p>
+<p>但是，在有限的情况下，safari还是给了一些支持的。那我们来看看，在已经有情况下，我们可以做那些事情。</p>
+<p>1：默认</p>
+<pre><code>&lt;input <span class="keyword">type</span>=<span class="string">"text"</span>&gt;
+默认首字母大写，可以通过autocapitalize=<span class="string">"off"</span>来关闭首字母大写。
+&lt;input <span class="keyword">type</span>=<span class="string">"text"</span> autocapitalize=<span class="string">"off"</span>&gt;
+</code></pre><p>2：html5 input</p>
+<pre><code>比如<span class="keyword">type</span>=“number/tel”
+&lt;input <span class="keyword">type</span>=<span class="string">"number"</span>&gt;
+</code></pre><p>3：键盘实现九宫格输入数字</p>
+<pre><code>只需要在数字类型键盘上增加pattern=<span class="string">"[0-9]*"</span>正则
+&lt;input <span class="keyword">type</span>=<span class="string">"number"</span> pattern=<span class="string">"[0-9]*"</span>&gt;
+</code></pre><p>这样是不是输入数字方便了很多。</p>
+<p>明天将继续，怎么实现键盘上搜索功能和键盘的消失和隐藏功能</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2013/06/30/webapp技巧系列(2)-文本框功能和键盘界面控制(1)/" data-id="yn9pniv06gsxbfhj" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/随笔/">随笔</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -675,7 +685,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -687,15 +697,7 @@
       <ul>
         
           <li>
-            <a href="/2015/05/11/README/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2015/05/11/XZNetworking请求库/">XZNetworking 支持get/post/restfulGet/restfulPost请求</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
           </li>
         
           <li>
@@ -703,7 +705,15 @@
           </li>
         
           <li>
+            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/29/微信搜索效果/">UISearchDisplayController，实现微信搜索效果</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
           </li>
         
       </ul>

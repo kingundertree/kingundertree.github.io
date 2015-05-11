@@ -73,100 +73,6 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-README" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/11/README/" class="article-date">
-  <time datetime="2015-05-11T10:27:40.000Z" itemprop="datePublished">May 11 2015</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="github地址">github地址</h3>
-<pre><code><span class="label">https:</span>//github<span class="preprocessor">.com</span>/kingundertree/XZNetworking
-</code></pre><h3 id="Pod支持">Pod支持</h3>
-<pre><code>pod <span class="string">'XZNetworking'</span>, <span class="symbol">:git</span> =&gt; <span class="string">'https://github.com/kingundertree/XZNetworking'</span>
-</code></pre><h3 id="Demo">Demo</h3>
-<pre><code><span class="label">https:</span>//github<span class="preprocessor">.com</span>/kingundertree/XZNetworkingDemo
-</code></pre><h3 id="功能">功能</h3>
-<pre><code><span class="bullet">1. </span>支持get请求，包括同步/异步
-<span class="bullet">2. </span>支持post请求，包括同步/异步
-<span class="bullet">3. </span>支持restfulGet请求，包括同步/异步
-<span class="bullet">4. </span>支持restfulPost请求，包括同步/异步
-<span class="bullet">5. </span>支持请求细节日志打印，包括request、header、body、response等细节信息
-<span class="bullet">6. </span>支持系统参数传递
-</code></pre><h3 id="实现机制">实现机制</h3>
-<pre><code><span class="bullet">1. </span>基于AFNetworking
-<span class="bullet">2. </span>通过NSOperationQueen管理所有的请求
-</code></pre><h3 id="补充">补充</h3>
-<pre><code>1.支持AFNetworking切换其他第三方网络库，需要单独处理请求成功回调逻辑
-2.可以支持加密等处理
-</code></pre><h3 id="代码片段">代码片段</h3>
-<h4 id="get请求">get请求</h4>
-<pre><code>#pragma mark - get Request
-- (void)getRequestMethodTest <span class="comment">{
-    NSDictionary *params = @{@"songIds":@"15702101"}</span>;
-    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">data</span>/<span class="title">music</span>/<span class="title">links</span>";</span>
-
-    [[XZRequestManager shareInstance] asyncGetWithServiceID:XZNetworkingGetServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(getRequestReturn:)];
-}
-
-- (void)getRequestReturn:(XZRequestResponse *)response <span class="comment">{
-    NSLog(@"response----&gt;&gt;%@",response.content);
-}</span>
-</code></pre><h4 id="post请求">post请求</h4>
-<pre><code>#pragma mark - post Request
-- (void)postRequestMethodTest <span class="comment">{
-    NSDictionary *params = @{@"log" : @"testtest"}</span>;
-    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">admin</span>.<span class="title">writeCrashLog</span>";</span>
-
-    [[XZRequestManager shareInstance] asyncPostWithServiceID:XZNetworkingPostServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(postRequestReturn:)];
-}
-
-- (void)postRequestReturn:(XZRequestResponse *)response <span class="comment">{
-    NSLog(@"response----&gt;&gt;%@",response.content);
-}</span>
-</code></pre><h4 id="restfulGet请求">restfulGet请求</h4>
-<pre><code>#pragma mark - restfulGet Request
-- (void)restfulGetMethodTest <span class="comment">{
-    NSDictionary *params = @{@"cityId":@"41"}</span>;
-    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">anjuke</span>/<span class="title">prop</span>/<span class="title">getconfig</span>/";</span>
-
-    [[XZRequestManager shareInstance] asyncRESTGetWithServiceID:XZNetworkingRestfulGetServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(restfulGetRequestReturn:)];
-}
-
-- (void)restfulGetRequestReturn:(XZRequestResponse *)response <span class="comment">{
-    NSLog(@"response----&gt;&gt;%@",response.content);
-}</span>
-</code></pre><h4 id="restfulPost">restfulPost</h4>
-<pre><code>#pragma mark - restfulPost Request
-- (void)restfulPostRequestMethodTest <span class="comment">{
-    NSDictionary *params = @{@"brokerId":@"1512265",@"chatFlag":@"1",@"cityId":@"41",@"token":@"ac69cf3c7cd1c116f41e5686928bfef6"}</span>;
-    NSString *<span class="function"><span class="keyword">method</span> = @"<span class="title">broker</span>/<span class="title">getinfoandppc</span>/";</span>
-
-    [[XZRequestManager shareInstance] asyncRESTPostWithServiceID:XZNetworkingRestfulPostServiceID methodName:<span class="function"><span class="keyword">method</span> <span class="title">params</span>:</span><span class="keyword">params</span> target:<span class="keyword">self</span> action:@<span class="keyword">selector</span>(restfulPostRequestReturn:)];
-}
-
-- (void)restfulPostRequestReturn:(XZRequestResponse *)response <span class="comment">{
-    NSLog(@"response----&gt;&gt;%@",response.content);
-}</span>
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/05/11/README/" data-id="q21qsve9ak5xl0qx" class="article-share-link">Share</a>
-      
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
     <article id="post-XZNetworking请求库" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/05/11/XZNetworking请求库/" class="article-date">
@@ -269,144 +175,6 @@
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XZNetworking/">XZNetworking</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-XZMusic构架设计" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/05/02/XZMusic构架设计/" class="article-date">
-  <time datetime="2015-05-01T16:00:00.000Z" itemprop="datePublished">May 2 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/XZMusic/">XZMusic</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="先上效果图">先上效果图</h3>
-<p><img src="https://raw.githubusercontent.com/kingundertree/XZMusic/master/XZMusic.gif" alt="XZMusic"></p>
-<h3 id="github地址">github地址</h3>
-<p><a href="https://github.com/kingundertree/XZMusic" target="_blank" rel="external">https://github.com/kingundertree/XZMusic</a></p>
-<h3 id="说明">说明</h3>
-<ol>
-<li>本md主要主要通过XZMusic分析下常见的iOS项目的搭建以及常见模块的设计和划分</li>
-<li>本项目的音乐信息取自本地SQL数据，通过FMDB获取</li>
-<li>音乐的统计信息采用CoreData实现</li>
-<li>歌曲资源和歌词取自网络</li>
-<li>播放器采用DOUAudio</li>
-<li>采用pod方式管理第三方库</li>
-</ol>
-<h3 id="功能">功能</h3>
-<ol>
-<li>本地搜索歌曲</li>
-<li>歌曲播放和下载、显示歌词</li>
-<li>歌曲的基本统计，包括点赞、播放次数等</li>
-<li>微博登录</li>
-</ol>
-<h3 id="主要模块">主要模块</h3>
-<ol>
-<li>网络请求模块XZNetWorking：集成AFNetworking，支持常见的get/post/restfulget/getfulget常见请求</li>
-<li>音乐下载模块MusicDownLoad：支持歌曲、歌词下载，包括本地存储处理，已经下载进度及常见信息回调</li>
-<li>微博登录libWeiboSDK：配合LoginManager使用</li>
-<li>UI主结构XZMenu：实现左右结构，滑动显示菜单</li>
-<li>UITabBar结构XZTabBar</li>
-</ol>
-<h3 id="构架设计">构架设计</h3>
-<pre><code>XZMusic
-    <span class="built_in">Data</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>本地化数据处理，包括本地音乐信息及音乐统计停息
-        XZMusicDataCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>coredata表信息输入输出接口
-        LKDBCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>SQL表信息输入输出接口
-        Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>本地数据库数据模型
-    Libs<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>不支持pod的库
-        DOUAudio<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>音乐播放，支持在线播放
-        XZNetWorking<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>网络请求库，集成AFNetworking库
-        libWeiboSDK<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>微博登录SDK
-    Manager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>APP业务操作管理类
-        GlobalManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app全局性参数管理，比如当前播放musicId、列表信息，以及下载的实时信息
-        MusicDownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>下载功能模块，支持音乐和歌词下载，本地存储处理，已经下载进度及常见信息回调
-        RequestManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>网络请求的请求
-        LoginManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>登录操作管理
-    Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app常见业务的model
-    Resource<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>常见资源，包括图片等
-    Views<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>视图资源，也就是app最重要的模块
-        component<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>通用的view类，包括base VC、table、Category、手势控件等
-        DownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>下载VC
-        Login<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>登录VC
-        Loving<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>最爱VC
-        Search<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>搜索VC
-        Setting<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>设置VC
-        ViewController<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>子页面VC
-        XZMenu<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>app主view结构
-        XZTabBar<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>UITabbar自定义结构
-    XZAppDelegate<span class="built_in">.</span>h
-    XZAppDelegate<span class="built_in">.</span>m
-
-Pods<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>支持第三方的类库
-
-    platform :ios, <span class="string">"6.0"</span>
-    pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.0'</span>
-    pod <span class="string">'pop'</span>, <span class="string">'~&gt; 1.0'</span>
-    pod <span class="string">'FMDB'</span>
-    pod <span class="string">'LKDBHelper'</span>, :head
-    pod <span class="string">'MBProgressHUD'</span>, <span class="string">'~&gt; 0.8'</span>
-    pod <span class="string">'MultiFunctionCell'</span>, :git <span class="subst">=&gt;</span> <span class="string">'https://github.com/kingundertree/MultiFunctionCell'</span>
-</code></pre><h3 id="补充">补充</h3>
-<ol>
-<li>后面的文章中单独对下载模块和网络请求模块的设计做详细阐述</li>
-<li>本项目的设计还有很多不足之处，主要体现在UI的左右结构设计和GCD使用还不够熟练</li>
-</ol>
-<h4 id="时间记录">时间记录</h4>
-<ol>
-<li>2014.8.22 周浦万达广场麦当劳，创建项目，实现pod管理和基本配置</li>
-<li>2014.8.28 公司，完成左右菜单结构，以及基本TabBar功能</li>
-<li>2014.8.29 公司，结构完善，引入手势控件</li>
-<li>2014.8.31 临港豪生，实现左侧菜单切换基本功能</li>
-<li>2014.9.22 实现微博登录和登录后信息</li>
-<li>2014.10.22 逐步实现asyncGetWithServiceID和的同步和异步方法，流程走通，待测试</li>
-<li>2014.10.29 调试url参数，service阶段</li>
-<li>2013.11.2 调试XZNetWork Get请求成功。api请求告一段落</li>
-<li>add LKDBHelper，实现歌手列表搜索，需要设计搜索模块</li>
-<li>add search singerList ViewController</li>
-<li>add search singerSongs Request</li>
-<li>11.13 add DOUAudioPlayer 实现播放歌曲功能</li>
-<li>11.22 实现本地音乐、歌词下载，以及本地播放功能</li>
-<li>11.23 实现歌词播放，进度同步</li>
-<li>12.2 add 播放暂停控制，以及其他ui</li>
-<li>12.6 add 子view 下载功能</li>
-<li>12.14 add 歌曲播放数据库读写记录操作</li>
-</ol>
-<h3 id="需要fix_方法">需要fix 方法</h3>
-<p>LKDBHelper.m</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">{</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithDBName:@<span class="string">"FreeMusic"</span>];</div><div class="line">}</div><div class="line"></div><div class="line">+(<span class="built_in">NSString</span>*)getDBPathWithDBName:(<span class="built_in">NSString</span>*)dbName</div><div class="line">{</div><div class="line">    <span class="built_in">NSString</span>* fileName = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span>([dbName hasSuffix:@<span class="string">".db"</span>] == <span class="literal">NO</span>) {</div><div class="line">        fileName = [<span class="built_in">NSString</span> stringWithFormat:@<span class="string">"%@.db"</span>,dbName];</div><div class="line">    }</div><div class="line">    <span class="keyword">else</span> {</div><div class="line">        fileName = dbName;</div><div class="line">    }</div><div class="line">    </div><div class="line"><span class="comment">//    NSString* filePath = [LKDBUtils getPathForDocuments:fileName inDir:@"db"];</span></div><div class="line">    <span class="built_in">NSString</span>* filePath = [LKDBUtils getPathForDocuments:fileName inDir:<span class="literal">nil</span>];</div><div class="line">    <span class="keyword">return</span> filePath;</div><div class="line">}</div></pre></td></tr></table></figure>
-
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/05/02/XZMusic构架设计/" data-id="izkx96f9ade88mbo" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XZMusic/">XZMusic</a></li></ul>
 
     </footer>
   </div>
@@ -705,6 +473,144 @@ Pods<span class="attribute">...</span><span class="attribute">...</span><span cl
 
 
   
+    <article id="post-XZMusic构架设计" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/05/02/XZMusic构架设计/" class="article-date">
+  <time datetime="2015-05-01T16:00:00.000Z" itemprop="datePublished">May 2 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/XZMusic/">XZMusic</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/XZMusic/master/XZMusic.gif" alt="XZMusic"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/XZMusic" target="_blank" rel="external">https://github.com/kingundertree/XZMusic</a></p>
+<h3 id="说明">说明</h3>
+<ol>
+<li>本md主要主要通过XZMusic分析下常见的iOS项目的搭建以及常见模块的设计和划分</li>
+<li>本项目的音乐信息取自本地SQL数据，通过FMDB获取</li>
+<li>音乐的统计信息采用CoreData实现</li>
+<li>歌曲资源和歌词取自网络</li>
+<li>播放器采用DOUAudio</li>
+<li>采用pod方式管理第三方库</li>
+</ol>
+<h3 id="功能">功能</h3>
+<ol>
+<li>本地搜索歌曲</li>
+<li>歌曲播放和下载、显示歌词</li>
+<li>歌曲的基本统计，包括点赞、播放次数等</li>
+<li>微博登录</li>
+</ol>
+<h3 id="主要模块">主要模块</h3>
+<ol>
+<li>网络请求模块XZNetWorking：集成AFNetworking，支持常见的get/post/restfulget/getfulget常见请求</li>
+<li>音乐下载模块MusicDownLoad：支持歌曲、歌词下载，包括本地存储处理，已经下载进度及常见信息回调</li>
+<li>微博登录libWeiboSDK：配合LoginManager使用</li>
+<li>UI主结构XZMenu：实现左右结构，滑动显示菜单</li>
+<li>UITabBar结构XZTabBar</li>
+</ol>
+<h3 id="构架设计">构架设计</h3>
+<pre><code>XZMusic
+    <span class="built_in">Data</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>本地化数据处理，包括本地音乐信息及音乐统计停息
+        XZMusicDataCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>coredata表信息输入输出接口
+        LKDBCenter<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>SQL表信息输入输出接口
+        Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>本地数据库数据模型
+    Libs<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>不支持pod的库
+        DOUAudio<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>音乐播放，支持在线播放
+        XZNetWorking<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>网络请求库，集成AFNetworking库
+        libWeiboSDK<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>微博登录SDK
+    Manager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>APP业务操作管理类
+        GlobalManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app全局性参数管理，比如当前播放musicId、列表信息，以及下载的实时信息
+        MusicDownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>下载功能模块，支持音乐和歌词下载，本地存储处理，已经下载进度及常见信息回调
+        RequestManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>网络请求的请求
+        LoginManager<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>登录操作管理
+    Model<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>app常见业务的model
+    Resource<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>常见资源，包括图片等
+    Views<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>视图资源，也就是app最重要的模块
+        component<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>通用的view类，包括base VC、table、Category、手势控件等
+        DownLoad<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>下载VC
+        Login<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>登录VC
+        Loving<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>最爱VC
+        Search<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>搜索VC
+        Setting<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">.</span>设置VC
+        ViewController<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>子页面VC
+        XZMenu<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="built_in">..</span>app主view结构
+        XZTabBar<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>UITabbar自定义结构
+    XZAppDelegate<span class="built_in">.</span>h
+    XZAppDelegate<span class="built_in">.</span>m
+
+Pods<span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span><span class="attribute">...</span>支持第三方的类库
+
+    platform :ios, <span class="string">"6.0"</span>
+    pod <span class="string">'AFNetworking'</span>, <span class="string">'~&gt; 2.0'</span>
+    pod <span class="string">'pop'</span>, <span class="string">'~&gt; 1.0'</span>
+    pod <span class="string">'FMDB'</span>
+    pod <span class="string">'LKDBHelper'</span>, :head
+    pod <span class="string">'MBProgressHUD'</span>, <span class="string">'~&gt; 0.8'</span>
+    pod <span class="string">'MultiFunctionCell'</span>, :git <span class="subst">=&gt;</span> <span class="string">'https://github.com/kingundertree/MultiFunctionCell'</span>
+</code></pre><h3 id="补充">补充</h3>
+<ol>
+<li>后面的文章中单独对下载模块和网络请求模块的设计做详细阐述</li>
+<li>本项目的设计还有很多不足之处，主要体现在UI的左右结构设计和GCD使用还不够熟练</li>
+</ol>
+<h4 id="时间记录">时间记录</h4>
+<ol>
+<li>2014.8.22 周浦万达广场麦当劳，创建项目，实现pod管理和基本配置</li>
+<li>2014.8.28 公司，完成左右菜单结构，以及基本TabBar功能</li>
+<li>2014.8.29 公司，结构完善，引入手势控件</li>
+<li>2014.8.31 临港豪生，实现左侧菜单切换基本功能</li>
+<li>2014.9.22 实现微博登录和登录后信息</li>
+<li>2014.10.22 逐步实现asyncGetWithServiceID和的同步和异步方法，流程走通，待测试</li>
+<li>2014.10.29 调试url参数，service阶段</li>
+<li>2013.11.2 调试XZNetWork Get请求成功。api请求告一段落</li>
+<li>add LKDBHelper，实现歌手列表搜索，需要设计搜索模块</li>
+<li>add search singerList ViewController</li>
+<li>add search singerSongs Request</li>
+<li>11.13 add DOUAudioPlayer 实现播放歌曲功能</li>
+<li>11.22 实现本地音乐、歌词下载，以及本地播放功能</li>
+<li>11.23 实现歌词播放，进度同步</li>
+<li>12.2 add 播放暂停控制，以及其他ui</li>
+<li>12.6 add 子view 下载功能</li>
+<li>12.14 add 歌曲播放数据库读写记录操作</li>
+</ol>
+<h3 id="需要fix_方法">需要fix 方法</h3>
+<p>LKDBHelper.m</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">- (instancetype)init</div><div class="line">{</div><div class="line">    <span class="keyword">return</span> [<span class="keyword">self</span> initWithDBName:@<span class="string">"FreeMusic"</span>];</div><div class="line">}</div><div class="line"></div><div class="line">+(<span class="built_in">NSString</span>*)getDBPathWithDBName:(<span class="built_in">NSString</span>*)dbName</div><div class="line">{</div><div class="line">    <span class="built_in">NSString</span>* fileName = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">if</span>([dbName hasSuffix:@<span class="string">".db"</span>] == <span class="literal">NO</span>) {</div><div class="line">        fileName = [<span class="built_in">NSString</span> stringWithFormat:@<span class="string">"%@.db"</span>,dbName];</div><div class="line">    }</div><div class="line">    <span class="keyword">else</span> {</div><div class="line">        fileName = dbName;</div><div class="line">    }</div><div class="line">    </div><div class="line"><span class="comment">//    NSString* filePath = [LKDBUtils getPathForDocuments:fileName inDir:@"db"];</span></div><div class="line">    <span class="built_in">NSString</span>* filePath = [LKDBUtils getPathForDocuments:fileName inDir:<span class="literal">nil</span>];</div><div class="line">    <span class="keyword">return</span> filePath;</div><div class="line">}</div></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/05/02/XZMusic构架设计/" data-id="izkx96f9ade88mbo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XZMusic/">XZMusic</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-微信搜索效果" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/29/微信搜索效果/" class="article-date">
@@ -744,6 +650,89 @@ Pods<span class="attribute">...</span><span class="attribute">...</span><span cl
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UISearchDisplayController/">UISearchDisplayController</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-多功能UITableViewCell菜单" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/29/多功能UITableViewCell菜单/" class="article-date">
+  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/MultiFunctionCell/master/multFunCell.gif" alt="Mou icon"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/MultiFunctionCell" target="_blank" rel="external">https://github.com/kingundertree/MultiFunctionCell</a></p>
+<h3 id="功能">功能</h3>
+<ol>
+<li>支持定制UITableViewCell菜单，通过滑动UITableViewCell显示左右侧菜单选项</li>
+<li>支持cell的重用，以及单个cell的菜单定制</li>
+</ol>
+<h3 id="实现机制">实现机制</h3>
+<ol>
+<li>定制UITableViewCell，在UITableViewCell.contentView上添加UIScrollView作为主视图，并绑定UIPanGestureRecognizer手势</li>
+<li>定义左右菜单视图，置于UIScrollView之下</li>
+<li>通过UIPanGestureRecognizer的事件控制UIScrollView的frame实现菜单的显示和隐藏</li>
+<li>定制UITableView，通过OverLayViewDelegate控制罩层的显示和隐藏</li>
+</ol>
+<h3 id="使用方法">使用方法</h3>
+<h5 id="UITableView">UITableView</h5>
+<p>继承MultiFunctionTableView</p>
+<pre><code>self<span class="preprocessor">.tableList</span> = [[MultiFunctionTableView alloc] initWithFrame:self<span class="preprocessor">.view</span><span class="preprocessor">.bounds</span> style:UITableViewStylePlain]<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.delegate</span> = self<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.dataSource</span> = self<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.rowHeight</span> = <span class="number">80</span><span class="comment">;</span>
+[self<span class="preprocessor">.view</span> addSubview:self<span class="preprocessor">.tableList</span>]<span class="comment">;</span>
+</code></pre><p>Datasource的cellForRow方法中实现<br>HomeViewCell继承MultiFunctionCell即可，并设置cell.cellActionDelegate = self.tableList即可。其他都不用care了</p>
+<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentify = @<span class="string">"cell"</span>;
+    HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
+    <span class="keyword">if</span> (!cell) {
+        cell = <span class="string">[[HomeViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                   reuseIdentifier:cellIdentify
+                               containingTableView:tableView
+                                leftUtilityButtons:@[@"left1"]
+                               rightUtilityButtons:@[@"right1",@"right2"]]</span>;
+        cell.cellActionDelegate = self.tableList;
+        [cell configCell:<span class="keyword">nil</span> index:indexPath];
+    }
+
+
+    <span class="keyword">return</span> cell;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/29/多功能UITableViewCell菜单/" data-id="mxpyj27pn9ha74ki" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a></li></ul>
 
     </footer>
   </div>
@@ -845,89 +834,6 @@ XXMenuVC = [[XXMenuViewController alloc] initWithRootVC:nav];
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-多功能UITableViewCell菜单" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/29/多功能UITableViewCell菜单/" class="article-date">
-  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="先上效果图">先上效果图</h3>
-<p><img src="https://raw.githubusercontent.com/kingundertree/MultiFunctionCell/master/multFunCell.gif" alt="Mou icon"></p>
-<h3 id="github地址">github地址</h3>
-<p><a href="https://github.com/kingundertree/MultiFunctionCell" target="_blank" rel="external">https://github.com/kingundertree/MultiFunctionCell</a></p>
-<h3 id="功能">功能</h3>
-<ol>
-<li>支持定制UITableViewCell菜单，通过滑动UITableViewCell显示左右侧菜单选项</li>
-<li>支持cell的重用，以及单个cell的菜单定制</li>
-</ol>
-<h3 id="实现机制">实现机制</h3>
-<ol>
-<li>定制UITableViewCell，在UITableViewCell.contentView上添加UIScrollView作为主视图，并绑定UIPanGestureRecognizer手势</li>
-<li>定义左右菜单视图，置于UIScrollView之下</li>
-<li>通过UIPanGestureRecognizer的事件控制UIScrollView的frame实现菜单的显示和隐藏</li>
-<li>定制UITableView，通过OverLayViewDelegate控制罩层的显示和隐藏</li>
-</ol>
-<h3 id="使用方法">使用方法</h3>
-<h5 id="UITableView">UITableView</h5>
-<p>继承MultiFunctionTableView</p>
-<pre><code>self<span class="preprocessor">.tableList</span> = [[MultiFunctionTableView alloc] initWithFrame:self<span class="preprocessor">.view</span><span class="preprocessor">.bounds</span> style:UITableViewStylePlain]<span class="comment">;</span>
-self<span class="preprocessor">.tableList</span><span class="preprocessor">.delegate</span> = self<span class="comment">;</span>
-self<span class="preprocessor">.tableList</span><span class="preprocessor">.dataSource</span> = self<span class="comment">;</span>
-self<span class="preprocessor">.tableList</span><span class="preprocessor">.rowHeight</span> = <span class="number">80</span><span class="comment">;</span>
-[self<span class="preprocessor">.view</span> addSubview:self<span class="preprocessor">.tableList</span>]<span class="comment">;</span>
-</code></pre><p>Datasource的cellForRow方法中实现<br>HomeViewCell继承MultiFunctionCell即可，并设置cell.cellActionDelegate = self.tableList即可。其他都不用care了</p>
-<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentify = @<span class="string">"cell"</span>;
-    HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
-    <span class="keyword">if</span> (!cell) {
-        cell = <span class="string">[[HomeViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                   reuseIdentifier:cellIdentify
-                               containingTableView:tableView
-                                leftUtilityButtons:@[@"left1"]
-                               rightUtilityButtons:@[@"right1",@"right2"]]</span>;
-        cell.cellActionDelegate = self.tableList;
-        [cell configCell:<span class="keyword">nil</span> index:indexPath];
-    }
-
-
-    <span class="keyword">return</span> cell;
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/04/29/多功能UITableViewCell菜单/" data-id="mxpyj27pn9ha74ki" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a></li></ul>
 
     </footer>
   </div>
@@ -1203,6 +1109,52 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
 
 
   
+    <article id="post-swift初感" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2014/07/27/swift初感/" class="article-date">
+  <time datetime="2014-07-26T16:00:00.000Z" itemprop="datePublished">Jul 27 2014</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/swift/">swift</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2014/07/27/swift初感/">swift初感</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>swift中文版，基本看完了。整体感觉：1，语法的改动只是方便了书写，核心优势还是在于函数方法的扩增；2，iOS开发也开始变得更加复杂，可选择性也更多；3，持续性学习的要求更加多，iOS开发就可以派生出n多的分支，业务类、运动健康、支付类等等；4，我感觉，我还不是一个真正意义的程序员！</p>
+<p>去年刚开始从oc转前端的时候，还是非ARC，因为看到很多人推荐学习，说是需要通过学习非ARC了解oc的运行机制。但是当时ARC已经推出来快2年了，我比较怀疑以上观点。后来顺利切换到ARC，极少情况下需要处理内存泄露和加持的问题。</p>
+<p>现在iOS的语言也越来越牛逼，他帮我们考虑了更多底层处理问题，极力让程序员关注开发，关注设计和实现。非ARC的问题，估计还是有很多人纠结，就像很多人问，我学习计算机是不是一定要学习c语言。我坚持认为，这些接近底层的东西，如果不是要深入钻研，了解就够了。</p>
+<p>毕竟，大部分工作还是在业务实现层次的。把握住技术发展，及时更上才是王道。比如swift，好多人还是觉得无所谓，有oc就好，切换到swift还需要几年。我倒觉得，一切都会很快的。因为swift才是iOS真正的高级开发语言，未来更多牛逼的应用是基于swift而不是OC。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2014/07/27/swift初感/" data-id="io62a2c8hfk7tdbq" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swift-oc/">swift oc</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1243,7 +1195,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -1255,15 +1207,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
       <ul>
         
           <li>
-            <a href="/2015/05/11/README/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2015/05/11/XZNetworking请求库/">XZNetworking 支持get/post/restfulGet/restfulPost请求</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
           </li>
         
           <li>
@@ -1271,7 +1215,15 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
           </li>
         
           <li>
+            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/29/微信搜索效果/">UISearchDisplayController，实现微信搜索效果</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
           </li>
         
       </ul>

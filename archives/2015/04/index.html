@@ -120,6 +120,89 @@
 
 
   
+    <article id="post-多功能UITableViewCell菜单" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2015/04/29/多功能UITableViewCell菜单/" class="article-date">
+  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
+</a>
+    
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a>
+  </div>
+
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="先上效果图">先上效果图</h3>
+<p><img src="https://raw.githubusercontent.com/kingundertree/MultiFunctionCell/master/multFunCell.gif" alt="Mou icon"></p>
+<h3 id="github地址">github地址</h3>
+<p><a href="https://github.com/kingundertree/MultiFunctionCell" target="_blank" rel="external">https://github.com/kingundertree/MultiFunctionCell</a></p>
+<h3 id="功能">功能</h3>
+<ol>
+<li>支持定制UITableViewCell菜单，通过滑动UITableViewCell显示左右侧菜单选项</li>
+<li>支持cell的重用，以及单个cell的菜单定制</li>
+</ol>
+<h3 id="实现机制">实现机制</h3>
+<ol>
+<li>定制UITableViewCell，在UITableViewCell.contentView上添加UIScrollView作为主视图，并绑定UIPanGestureRecognizer手势</li>
+<li>定义左右菜单视图，置于UIScrollView之下</li>
+<li>通过UIPanGestureRecognizer的事件控制UIScrollView的frame实现菜单的显示和隐藏</li>
+<li>定制UITableView，通过OverLayViewDelegate控制罩层的显示和隐藏</li>
+</ol>
+<h3 id="使用方法">使用方法</h3>
+<h5 id="UITableView">UITableView</h5>
+<p>继承MultiFunctionTableView</p>
+<pre><code>self<span class="preprocessor">.tableList</span> = [[MultiFunctionTableView alloc] initWithFrame:self<span class="preprocessor">.view</span><span class="preprocessor">.bounds</span> style:UITableViewStylePlain]<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.delegate</span> = self<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.dataSource</span> = self<span class="comment">;</span>
+self<span class="preprocessor">.tableList</span><span class="preprocessor">.rowHeight</span> = <span class="number">80</span><span class="comment">;</span>
+[self<span class="preprocessor">.view</span> addSubview:self<span class="preprocessor">.tableList</span>]<span class="comment">;</span>
+</code></pre><p>Datasource的cellForRow方法中实现<br>HomeViewCell继承MultiFunctionCell即可，并设置cell.cellActionDelegate = self.tableList即可。其他都不用care了</p>
+<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *cellIdentify = @<span class="string">"cell"</span>;
+    HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
+    <span class="keyword">if</span> (!cell) {
+        cell = <span class="string">[[HomeViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                   reuseIdentifier:cellIdentify
+                               containingTableView:tableView
+                                leftUtilityButtons:@[@"left1"]
+                               rightUtilityButtons:@[@"right1",@"right2"]]</span>;
+        cell.cellActionDelegate = self.tableList;
+        [cell configCell:<span class="keyword">nil</span> index:indexPath];
+    }
+
+
+    <span class="keyword">return</span> cell;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2015/04/29/多功能UITableViewCell菜单/" data-id="mxpyj27pn9ha74ki" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-XXMenuDemo，三栏式滑动菜单结构" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/04/29/XXMenuDemo，三栏式滑动菜单结构/" class="article-date">
@@ -213,89 +296,6 @@ XXMenuVC = [[XXMenuViewController alloc] initWithRootVC:nav];
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/XXMenuDemo/">XXMenuDemo</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-多功能UITableViewCell菜单" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/04/29/多功能UITableViewCell菜单/" class="article-date">
-  <time datetime="2015-04-28T16:00:00.000Z" itemprop="datePublished">Apr 29 2015</time>
-</a>
-    
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/MultiFunctionCell/">MultiFunctionCell</a>
-  </div>
-
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="先上效果图">先上效果图</h3>
-<p><img src="https://raw.githubusercontent.com/kingundertree/MultiFunctionCell/master/multFunCell.gif" alt="Mou icon"></p>
-<h3 id="github地址">github地址</h3>
-<p><a href="https://github.com/kingundertree/MultiFunctionCell" target="_blank" rel="external">https://github.com/kingundertree/MultiFunctionCell</a></p>
-<h3 id="功能">功能</h3>
-<ol>
-<li>支持定制UITableViewCell菜单，通过滑动UITableViewCell显示左右侧菜单选项</li>
-<li>支持cell的重用，以及单个cell的菜单定制</li>
-</ol>
-<h3 id="实现机制">实现机制</h3>
-<ol>
-<li>定制UITableViewCell，在UITableViewCell.contentView上添加UIScrollView作为主视图，并绑定UIPanGestureRecognizer手势</li>
-<li>定义左右菜单视图，置于UIScrollView之下</li>
-<li>通过UIPanGestureRecognizer的事件控制UIScrollView的frame实现菜单的显示和隐藏</li>
-<li>定制UITableView，通过OverLayViewDelegate控制罩层的显示和隐藏</li>
-</ol>
-<h3 id="使用方法">使用方法</h3>
-<h5 id="UITableView">UITableView</h5>
-<p>继承MultiFunctionTableView</p>
-<pre><code>self<span class="preprocessor">.tableList</span> = [[MultiFunctionTableView alloc] initWithFrame:self<span class="preprocessor">.view</span><span class="preprocessor">.bounds</span> style:UITableViewStylePlain]<span class="comment">;</span>
-self<span class="preprocessor">.tableList</span><span class="preprocessor">.delegate</span> = self<span class="comment">;</span>
-self<span class="preprocessor">.tableList</span><span class="preprocessor">.dataSource</span> = self<span class="comment">;</span>
-self<span class="preprocessor">.tableList</span><span class="preprocessor">.rowHeight</span> = <span class="number">80</span><span class="comment">;</span>
-[self<span class="preprocessor">.view</span> addSubview:self<span class="preprocessor">.tableList</span>]<span class="comment">;</span>
-</code></pre><p>Datasource的cellForRow方法中实现<br>HomeViewCell继承MultiFunctionCell即可，并设置cell.cellActionDelegate = self.tableList即可。其他都不用care了</p>
-<pre><code>- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    static NSString *cellIdentify = @<span class="string">"cell"</span>;
-    HomeViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellIdentify];
-    <span class="keyword">if</span> (!cell) {
-        cell = <span class="string">[[HomeViewCell alloc] initWithStyle:UITableViewCellStyleDefault
-                                   reuseIdentifier:cellIdentify
-                               containingTableView:tableView
-                                leftUtilityButtons:@[@"left1"]
-                               rightUtilityButtons:@[@"right1",@"right2"]]</span>;
-        cell.cellActionDelegate = self.tableList;
-        [cell configCell:<span class="keyword">nil</span> index:indexPath];
-    }
-
-
-    <span class="keyword">return</span> cell;
-}
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2015/04/29/多功能UITableViewCell菜单/" data-id="mxpyj27pn9ha74ki" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MultiFunctionCell/">MultiFunctionCell</a></li></ul>
 
     </footer>
   </div>
@@ -461,7 +461,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/05">May 2015</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/04">April 2015</a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2015/03">March 2015</a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2014/07">July 2014</a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/07">July 2013</a><span class="archive-list-count">6</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2013/06">June 2013</a><span class="archive-list-count">9</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2011/08">August 2011</a><span class="archive-list-count">1</span></li></ul>
     </div>
   </div>
 
@@ -473,15 +473,7 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
       <ul>
         
           <li>
-            <a href="/2015/05/11/README/">(no title)</a>
-          </li>
-        
-          <li>
             <a href="/2015/05/11/XZNetworking请求库/">XZNetworking 支持get/post/restfulGet/restfulPost请求</a>
-          </li>
-        
-          <li>
-            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
           </li>
         
           <li>
@@ -489,7 +481,15 @@ self<span class="preprocessor">.window</span><span class="preprocessor">.rootVie
           </li>
         
           <li>
+            <a href="/2015/05/02/XZMusic构架设计/">XZMusic构架设计</a>
+          </li>
+        
+          <li>
             <a href="/2015/04/29/微信搜索效果/">UISearchDisplayController，实现微信搜索效果</a>
+          </li>
+        
+          <li>
+            <a href="/2015/04/29/多功能UITableViewCell菜单/">多功能UITableViewCell菜单</a>
           </li>
         
       </ul>
